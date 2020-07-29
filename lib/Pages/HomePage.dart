@@ -2,6 +2,7 @@ import 'package:budget_planner/ExpenseCategory.dart';
 import 'package:budget_planner/ExpenseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'ExpenseDetailPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -219,9 +220,19 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: ListView.builder(
                         itemBuilder: (context, index) {
-                          return ExpenseCard(
-                            categoryList: categoryList,
-                            index: index,
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ExpenseDetailPage(),
+                                ),
+                              );
+                            },
+                            child: ExpenseCard(
+                              categoryList: categoryList,
+                              index: index,
+                            ),
                           );
                         },
                         itemCount: categoryList.length,
