@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               height: 210,
               width: 300,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Padding(
@@ -99,6 +99,7 @@ class _HomePageState extends State<HomePage> {
                         RaisedButton(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.blue),
                           ),
                           onPressed: () {
                             if (myController.text.isNotEmpty) {
@@ -106,25 +107,28 @@ class _HomePageState extends State<HomePage> {
                                   .pop(int.parse(myController.text.toString()));
                             }
                           },
-                          color: Colors.blue,
+                          color: Colors.white,
                           child: Text(
                             "Modify",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.blue,
                             ),
                           ),
                         ),
                         RaisedButton(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.red),
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          color: Colors.red,
+                          color: Colors.white,
                           child: Text(
                             "Cancel",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
                           ),
                         ),
                       ],
@@ -169,7 +173,9 @@ class _HomePageState extends State<HomePage> {
                   RaisedButton(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(color: Colors.blue),
                     ),
+                    color: Colors.white,
                     onPressed: () {
                       createBudgetDialog(context).then((value) {
                         setState(() {
@@ -179,11 +185,10 @@ class _HomePageState extends State<HomePage> {
                         });
                       });
                     },
-                    color: Colors.blue,
                     child: Text(
                       "Modify Budget",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blue,
                       ),
                     ),
                   )
@@ -225,7 +230,9 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ExpenseDetailPage(),
+                                  builder: (context) => ExpenseDetailPage(
+                                    expense: categoryList[index],
+                                  ),
                                 ),
                               );
                             },
@@ -244,13 +251,14 @@ class _HomePageState extends State<HomePage> {
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.blue),
                           ),
                           onPressed: () {},
-                          color: Colors.green,
+                          color: Colors.white,
                           child: Text(
                             "Add Category",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.blue,
                             ),
                           ),
                         ),

@@ -1,6 +1,11 @@
+import 'package:budget_planner/ExpenseCategory.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseDetailPage extends StatefulWidget {
+  final ExpenseCategory expense;
+
+  ExpenseDetailPage({@required this.expense});
+
   @override
   _ExpenseDetailPageState createState() => _ExpenseDetailPageState();
 }
@@ -9,18 +14,19 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _getCustomAppBar(context),
+      backgroundColor: Colors.white,
+      appBar: _getCustomAppBar(context, widget.expense),
     );
   }
 }
 
-_getCustomAppBar(BuildContext context) {
+_getCustomAppBar(BuildContext context, ExpenseCategory expense) {
   return PreferredSize(
-    preferredSize: Size.fromHeight(75),
+    preferredSize: Size.fromHeight(80),
     child: Container(
       alignment: Alignment.bottomCenter,
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: Colors.white,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,17 +52,17 @@ _getCustomAppBar(BuildContext context) {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: expense.categoryColor,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.hotel),
+                  child: Icon(expense.categoryIcon),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
-                    "Category",
+                    "${expense.name} \$${expense.expense}",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
