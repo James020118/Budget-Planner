@@ -38,109 +38,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<int> createBudgetDialog(BuildContext context) {
-    TextEditingController myController = TextEditingController();
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Container(
-              height: 210,
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          "Enter New Budget",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            child: TextField(
-                              controller: myController,
-                              keyboardType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                WhitelistingTextInputFormatter.digitsOnly
-                              ],
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                labelText: "Budget",
-                                hintText: "Numbers Only",
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.blue),
-                          ),
-                          onPressed: () {
-                            if (myController.text.isNotEmpty) {
-                              Navigator.of(context)
-                                  .pop(int.parse(myController.text.toString()));
-                            }
-                          },
-                          color: Colors.white,
-                          child: Text(
-                            "Modify",
-                            style: TextStyle(
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ),
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.red),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          color: Colors.white,
-                          child: Text(
-                            "Cancel",
-                            style: TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,11 +63,24 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    "\$$totalExpense / \$$totalBudget",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
+                  RichText(
+                    text: TextSpan(
+                      text: "\$$totalExpense",
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: " / \$$totalBudget",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   RaisedButton(
@@ -180,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     color: Colors.white,
                     onPressed: () {
-                      createBudgetDialog(context).then((value) {
+                      _createBudgetDialog(context).then((value) {
                         setState(() {
                           if (value != null) {
                             totalBudget = value;
@@ -199,69 +109,57 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 10,
+              ),
+              child: Text(
+                "Details",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
                 ),
-                height: MediaQuery.of(context).size.height * 0.7,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16, bottom: 10),
-                      child: Text(
-                        "Details",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ExpenseDetailPage(
-                                    expense: categoryList[index],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: ExpenseCard(
-                              categoryList: categoryList,
-                              index: index,
-                            ),
-                          );
-                        },
-                        itemCount: categoryList.length,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Center(
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.blue),
-                          ),
-                          onPressed: () {},
-                          color: Colors.white,
-                          child: Text(
-                            "Add Category",
-                            style: TextStyle(
-                              color: Colors.blue,
-                            ),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExpenseDetailPage(
+                            expense: categoryList[index],
                           ),
                         ),
-                      ),
+                      );
+                    },
+                    child: ExpenseCard(
+                      categoryList: categoryList,
+                      index: index,
                     ),
-                  ],
+                  );
+                },
+                itemCount: categoryList.length,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Center(
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: BorderSide(color: Colors.blue),
+                  ),
+                  onPressed: () {},
+                  color: Colors.white,
+                  child: Text(
+                    "Add Category",
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -270,4 +168,107 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+Future<int> _createBudgetDialog(BuildContext context) {
+  TextEditingController myController = TextEditingController();
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Container(
+            height: 210,
+            width: 300,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "Enter New Budget",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: TextField(
+                            controller: myController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter.digitsOnly
+                            ],
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              labelText: "Budget",
+                              hintText: "Numbers Only",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.blue),
+                        ),
+                        onPressed: () {
+                          if (myController.text.isNotEmpty) {
+                            Navigator.of(context)
+                                .pop(int.parse(myController.text.toString()));
+                          }
+                        },
+                        color: Colors.white,
+                        child: Text(
+                          "Modify",
+                          style: TextStyle(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.red),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        color: Colors.white,
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      });
 }

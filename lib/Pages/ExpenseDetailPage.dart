@@ -1,5 +1,6 @@
 import 'package:budget_planner/ExpenseCategory.dart';
 import 'package:flutter/material.dart';
+import 'package:budget_planner/DetailCard.dart';
 
 class ExpenseDetailPage extends StatefulWidget {
   final ExpenseCategory expense;
@@ -16,6 +17,42 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _getCustomAppBar(context, widget.expense),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    "Transactions",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {},
+                    child: DetailCard(),
+                  );
+                },
+                itemCount: 5,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
