@@ -1,5 +1,5 @@
-import 'package:budget_planner/ExpenseCategory.dart';
-import 'package:budget_planner/ExpenseCard.dart';
+import 'package:budget_planner/classes/ExpenseCategory.dart';
+import 'package:budget_planner/modules/ExpenseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'ExpenseDetailPage.dart';

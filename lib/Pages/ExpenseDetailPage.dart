@@ -1,6 +1,6 @@
-import 'package:budget_planner/ExpenseCategory.dart';
+import 'package:budget_planner/classes/ExpenseCategory.dart';
 import 'package:flutter/material.dart';
-import 'package:budget_planner/DetailCard.dart';
+import 'package:budget_planner/modules/DetailCard.dart';
 
 class ExpenseDetailPage extends StatefulWidget {
   final ExpenseCategory expense;
