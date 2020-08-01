@@ -44,10 +44,13 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {},
-                    child: DetailCard(),
+                    child: DetailCard(
+                      details: widget.expense.dets,
+                      index: index,
+                    ),
                   );
                 },
-                itemCount: 5,
+                itemCount: widget.expense.dets.length,
               ),
             ),
           ],
@@ -97,7 +100,7 @@ _getCustomAppBar(BuildContext context, ExpenseCategory expense) {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
-                    "${expense.name} \$${expense.expense}",
+                    "${expense.name} \$${expense.expense.toStringAsFixed(2)}",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

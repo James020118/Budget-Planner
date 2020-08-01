@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:budget_planner/classes/ExpenseDetail.dart';
+import 'package:intl/intl.dart';
 
 class DetailCard extends StatefulWidget {
+  final List<ExpenseDetail> details;
+  final int index;
+
+  DetailCard({@required this.details, @required this.index});
+
   @override
   _DetailCardState createState() => _DetailCardState();
 }
 
 class _DetailCardState extends State<DetailCard> {
+  String transactionTitle;
+  double transactionAmount;
+  DateTime transactionTime;
+  String transactionDescription;
+  String formattedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    transactionTitle = widget.details[widget.index].title;
+    transactionAmount = widget.details[widget.index].amount;
+    transactionTime = widget.details[widget.index].t;
+    formattedDate = DateFormat('yyyy-MM-dd').format(transactionTime);
+    transactionDescription = widget.details[widget.index].description;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,15 +56,15 @@ class _DetailCardState extends State<DetailCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("Transaction title"),
-                  Text("Amount"),
-                  Text("Date time"),
+                  Text("$transactionTitle"),
+                  Text("\$${transactionAmount.toStringAsFixed(2)}"),
+                  Text("$formattedDate"),
                 ],
               ),
               SizedBox(
                 height: 10,
               ),
-              Text("Transaction Description"),
+              Text("$transactionDescription"),
             ],
           ),
         ),

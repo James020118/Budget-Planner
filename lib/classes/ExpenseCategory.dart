@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:budget_planner/classes/ExpenseDetail.dart';
 
 class ExpenseCategory {
   String name;
-  int expense;
+  double expense;
   Color categoryColor;
   IconData categoryIcon;
+  List<ExpenseDetail> dets;
 
-  ExpenseCategory(String n, int e, Color c, IconData i) {
+  ExpenseCategory(
+      String n, double e, Color c, IconData i, List<ExpenseDetail> d) {
     this.name = n;
     this.expense = e;
     this.categoryColor = c;
     this.categoryIcon = i;
+    this.dets = d;
   }
 
-  void addExpense(int amount) {
+  void addExpense(double amount) {
     expense += amount;
+  }
+
+  void addDetail(ExpenseDetail d) {
+    dets.add(d);
   }
 }

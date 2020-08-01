@@ -1,4 +1,5 @@
 import 'package:budget_planner/classes/ExpenseCategory.dart';
+import 'package:budget_planner/classes/ExpenseDetail.dart';
 import 'package:budget_planner/modules/ExpenseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,18 +12,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int totalBudget = 0;
-  int totalExpense = 0;
+  double totalExpense = 0;
 
-  ExpenseCategory housing =
-      ExpenseCategory("Housing", 0, Colors.orange, Icons.hotel);
+  ExpenseCategory housing = ExpenseCategory("Housing", 100, Colors.orange,
+      Icons.hotel, [new ExpenseDetail("title", 100, DateTime.now(), "ahaha")]);
   ExpenseCategory food =
-      ExpenseCategory("Food", 0, Colors.purple, Icons.fastfood);
+      ExpenseCategory("Food", 0, Colors.purple, Icons.fastfood, []);
   ExpenseCategory bills =
-      ExpenseCategory("Bills", 0, Colors.green, Icons.credit_card);
-  ExpenseCategory entertainment =
-      ExpenseCategory("Entertainment", 0, Colors.lightBlue, Icons.local_play);
+      ExpenseCategory("Bills", 0, Colors.green, Icons.credit_card, []);
+  ExpenseCategory entertainment = ExpenseCategory(
+      "Entertainment", 0, Colors.lightBlue, Icons.local_play, []);
   ExpenseCategory clothing =
-      ExpenseCategory("Clothing", 0, Colors.teal, Icons.shopping_basket);
+      ExpenseCategory("Clothing", 0, Colors.teal, Icons.shopping_basket, []);
   List<ExpenseCategory> categoryList = [];
 
   @override
@@ -65,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   RichText(
                     text: TextSpan(
-                      text: "\$$totalExpense",
+                      text: "\$${totalExpense.toStringAsFixed(2)}",
                       style: TextStyle(
                         fontSize: 25,
                         color: Colors.black,
@@ -180,8 +181,6 @@ Future<int> _createBudgetDialog(BuildContext context) {
             borderRadius: BorderRadius.circular(15),
           ),
           child: Container(
-            height: 210,
-            width: 300,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
@@ -189,6 +188,7 @@ Future<int> _createBudgetDialog(BuildContext context) {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Row(

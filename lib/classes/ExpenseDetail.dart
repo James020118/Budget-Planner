@@ -1,6 +1,6 @@
 class ExpenseDetail {
   String title;
-  int amount;
+  double amount;
   DateTime t;
   String description;
 
