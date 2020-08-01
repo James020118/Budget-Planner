@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 25,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
+                        fontFamily: 'Avenir Next Rounded',
                       ),
                       children: [
                         TextSpan(
@@ -79,6 +80,7 @@ class _HomePageState extends State<HomePage> {
                             fontSize: 15,
                             color: Colors.grey,
                             fontWeight: FontWeight.bold,
+                            fontFamily: 'Avenir Next Rounded',
                           ),
                         ),
                       ],
