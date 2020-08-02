@@ -17,165 +17,167 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Enter Transaction Details:",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Enter Transaction Details:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          controller: titleController,
-                          decoration: InputDecoration(
-                            labelText: "Transaction Title",
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: titleController,
+                            decoration: InputDecoration(
+                              labelText: "Transaction Title",
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          controller: amountController,
-                          decoration: InputDecoration(
-                            labelText: "Transaction Amount",
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: amountController,
+                            decoration: InputDecoration(
+                              labelText: "Transaction Amount",
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 4,
-                        child: TextField(
-                          controller: yearController,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            WhitelistingTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(4),
-                          ],
-                          decoration: InputDecoration(
-                              labelText: "Year", hintText: "YYYY"),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Flexible(
-                        flex: 3,
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            WhitelistingTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(2),
-                          ],
-                          controller: monthController,
-                          decoration: InputDecoration(
-                              labelText: "Month", hintText: "MM"),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Flexible(
-                        flex: 3,
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            WhitelistingTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(2),
-                          ],
-                          controller: dayController,
-                          decoration:
-                              InputDecoration(labelText: "Day", hintText: "DD"),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          controller: descriptionController,
-                          decoration: InputDecoration(
-                            labelText: "Transaction Description",
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Flexible(
+                          flex: 4,
+                          child: TextField(
+                            controller: yearController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(4),
+                            ],
+                            decoration: InputDecoration(
+                                labelText: "Year", hintText: "YYYY"),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.blue),
+                        SizedBox(
+                          width: 10,
                         ),
-                        onPressed: () {
-                          // TODO: check if the date is valid
-                          if (titleController.text.isNotEmpty &&
-                              amountController.text.isNotEmpty &&
-                              yearController.text.isNotEmpty &&
-                              monthController.text.isNotEmpty &&
-                              dayController.text.isNotEmpty &&
-                              descriptionController.text.isNotEmpty) {
-                            ExpenseDetail e = ExpenseDetail(
-                              title: titleController.text,
-                              amount: double.parse(amountController.text),
-                              t: DateTime.parse(
-                                  "${yearController.text}${monthController.text}${dayController.text}"),
-                              description: descriptionController.text,
-                            );
-                            Navigator.of(context).pop(e);
-                          }
-                        },
-                        color: Colors.white,
-                        child: Text(
-                          "Add",
-                          style: TextStyle(
-                            color: Colors.blue,
+                        Flexible(
+                          flex: 3,
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(2),
+                            ],
+                            controller: monthController,
+                            decoration: InputDecoration(
+                                labelText: "Month", hintText: "MM"),
                           ),
                         ),
-                      ),
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.red),
+                        SizedBox(
+                          width: 10,
                         ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        color: Colors.white,
-                        child: Text(
-                          "Cancel",
-                          style: TextStyle(
-                            color: Colors.red,
+                        Flexible(
+                          flex: 3,
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(2),
+                            ],
+                            controller: dayController,
+                            decoration: InputDecoration(
+                                labelText: "Day", hintText: "DD"),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: descriptionController,
+                            decoration: InputDecoration(
+                              labelText: "Transaction Description",
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.blue),
+                          ),
+                          onPressed: () {
+                            // TODO: check if the date is valid
+                            if (titleController.text.isNotEmpty &&
+                                amountController.text.isNotEmpty &&
+                                yearController.text.isNotEmpty &&
+                                monthController.text.isNotEmpty &&
+                                dayController.text.isNotEmpty &&
+                                descriptionController.text.isNotEmpty) {
+                              ExpenseDetail e = ExpenseDetail(
+                                title: titleController.text,
+                                amount: double.parse(amountController.text),
+                                t: DateTime.parse(
+                                    "${yearController.text}${monthController.text}${dayController.text}"),
+                                description: descriptionController.text,
+                              );
+                              Navigator.of(context).pop(e);
+                            }
+                          },
+                          color: Colors.white,
+                          child: Text(
+                            "Add",
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.red),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          color: Colors.white,
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

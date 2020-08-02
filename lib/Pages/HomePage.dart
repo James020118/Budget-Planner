@@ -3,6 +3,7 @@ import 'package:budget_planner/modules/ExpenseCard.dart';
 import 'package:flutter/material.dart';
 import 'ExpenseDetailPage.dart';
 import 'package:budget_planner/modules/BudgetDialog.dart';
+import 'package:budget_planner/modules/CategoryDialog.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   int totalBudget = 0;
   double totalExpense = 0;
 
+  // starting categories
   ExpenseCategory housing =
       ExpenseCategory("Housing", 0, Colors.orange, Icons.hotel, []);
   ExpenseCategory food =
@@ -166,7 +168,9 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.blue),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    addCategoryDialog(context);
+                  },
                   color: Colors.white,
                   child: Text(
                     "Add Category",
