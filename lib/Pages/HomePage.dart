@@ -1,5 +1,4 @@
 import 'package:budget_planner/classes/ExpenseCategory.dart';
-import 'package:budget_planner/classes/ExpenseDetail.dart';
 import 'package:budget_planner/modules/ExpenseCard.dart';
 import 'package:flutter/material.dart';
 import 'ExpenseDetailPage.dart';
@@ -14,8 +13,8 @@ class _HomePageState extends State<HomePage> {
   int totalBudget = 0;
   double totalExpense = 0;
 
-  ExpenseCategory housing = ExpenseCategory("Housing", 100, Colors.orange,
-      Icons.hotel, [new ExpenseDetail("title", 100, DateTime.now(), "ahaha")]);
+  ExpenseCategory housing =
+      ExpenseCategory("Housing", 0, Colors.orange, Icons.hotel, []);
   ExpenseCategory food =
       ExpenseCategory("Food", 0, Colors.purple, Icons.fastfood, []);
   ExpenseCategory bills =
@@ -29,14 +28,16 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    categoryList.add(housing);
-    categoryList.add(food);
-    categoryList.add(bills);
-    categoryList.add(entertainment);
-    categoryList.add(clothing);
-    for (int i = 0; i < categoryList.length; i++) {
-      totalExpense += categoryList[i].expense;
-    }
+    setState(() {
+      categoryList.add(housing);
+      categoryList.add(food);
+      categoryList.add(bills);
+      categoryList.add(entertainment);
+      categoryList.add(clothing);
+      for (int i = 0; i < categoryList.length; i++) {
+        totalExpense += categoryList[i].expense;
+      }
+    });
   }
 
   @override
@@ -69,7 +70,9 @@ class _HomePageState extends State<HomePage> {
                       text: "\$${totalExpense.toStringAsFixed(2)}",
                       style: TextStyle(
                         fontSize: 25,
-                        color: Colors.black,
+                        color: totalExpense > totalBudget
+                            ? Colors.red
+                            : Colors.black,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Avenir Next Rounded',
                       ),
@@ -136,7 +139,15 @@ class _HomePageState extends State<HomePage> {
                             expense: categoryList[index],
                           ),
                         ),
-                      );
+                      ).then((value) {
+                        setState(() {
+                          categoryList[index] = value;
+                          totalExpense = 0;
+                          for (int i = 0; i < categoryList.length; i++) {
+                            totalExpense += categoryList[i].expense;
+                          }
+                        });
+                      });
                     },
                     child: ExpenseCard(
                       categoryList: categoryList,

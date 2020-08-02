@@ -131,7 +131,24 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                           borderRadius: BorderRadius.circular(18.0),
                           side: BorderSide(color: Colors.blue),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          // TODO: check if the date is valid
+                          if (titleController.text.isNotEmpty &&
+                              amountController.text.isNotEmpty &&
+                              yearController.text.isNotEmpty &&
+                              monthController.text.isNotEmpty &&
+                              dayController.text.isNotEmpty &&
+                              descriptionController.text.isNotEmpty) {
+                            ExpenseDetail e = ExpenseDetail(
+                              title: titleController.text,
+                              amount: double.parse(amountController.text),
+                              t: DateTime.parse(
+                                  "${yearController.text}${monthController.text}${dayController.text}"),
+                              description: descriptionController.text,
+                            );
+                            Navigator.of(context).pop(e);
+                          }
+                        },
                         color: Colors.white,
                         child: Text(
                           "Add",
@@ -146,7 +163,6 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                           side: BorderSide(color: Colors.red),
                         ),
                         onPressed: () {
-                          // TODO: handle return values
                           Navigator.of(context).pop();
                         },
                         color: Colors.white,

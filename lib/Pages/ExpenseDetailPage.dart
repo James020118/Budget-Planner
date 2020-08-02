@@ -1,7 +1,6 @@
 import 'package:budget_planner/classes/ExpenseCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:budget_planner/modules/DetailCard.dart';
-import 'package:budget_planner/classes/ExpenseDetail.dart';
 import 'package:budget_planner/modules/TransactionDialog.dart';
 
 class ExpenseDetailPage extends StatefulWidget {
@@ -33,7 +32,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.of(context).pop(widget.expense);
                   },
                   child: Icon(
                     Icons.arrow_back,
@@ -73,7 +72,13 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: GestureDetector(
                   onTap: () {
-                    addTransactionDialog(context);
+                    addTransactionDialog(context).then((value) {
+                      if (value != null) {
+                        setState(() {
+                          widget.expense.addDetail(value);
+                        });
+                      }
+                    });
                   },
                   child: Icon(
                     Icons.add,

@@ -23,5 +23,6 @@ class ExpenseCategory {
 
   void addDetail(ExpenseDetail d) {
     dets.add(d);
+    expense += d.amount;
   }
 }

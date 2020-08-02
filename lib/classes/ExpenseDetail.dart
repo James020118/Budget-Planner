@@ -4,5 +4,5 @@ class ExpenseDetail {
   DateTime t;
   String description;
 
-  ExpenseDetail(this.title, this.amount, this.t, this.description);
+  ExpenseDetail({this.title, this.amount, this.t, this.description});
 }
