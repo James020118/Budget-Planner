@@ -25,4 +25,9 @@ class ExpenseCategory {
     dets.add(d);
     expense += d.amount;
   }
+
+  void removeDetail(int index) {
+    expense -= dets[index].amount;
+    dets.removeAt(index);
+  }
 }

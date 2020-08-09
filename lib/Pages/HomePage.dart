@@ -27,6 +27,13 @@ class _HomePageState extends State<HomePage> {
       ExpenseCategory("Clothing", 0, Colors.teal, Icons.shopping_basket, []);
   List<ExpenseCategory> categoryList = [];
 
+  calculateTotalExpense() {
+    totalExpense = 0;
+    for (int i = 0; i < categoryList.length; i++) {
+      totalExpense += categoryList[i].expense;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -36,9 +43,7 @@ class _HomePageState extends State<HomePage> {
       categoryList.add(bills);
       categoryList.add(entertainment);
       categoryList.add(clothing);
-      for (int i = 0; i < categoryList.length; i++) {
-        totalExpense += categoryList[i].expense;
-      }
+      calculateTotalExpense();
     });
   }
 
@@ -132,28 +137,43 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ExpenseDetailPage(
-                            expense: categoryList[index],
-                          ),
-                        ),
-                      ).then((value) {
-                        setState(() {
-                          categoryList[index] = value;
-                          totalExpense = 0;
-                          for (int i = 0; i < categoryList.length; i++) {
-                            totalExpense += categoryList[i].expense;
-                          }
-                        });
+                  return Dismissible(
+                    key: Key(categoryList[index].name),
+                    onDismissed: (direction) {
+                      setState(() {
+                        categoryList.removeAt(index);
+                        calculateTotalExpense();
                       });
                     },
-                    child: ExpenseCard(
-                      categoryList: categoryList,
-                      index: index,
+                    background: Container(
+                      alignment: Alignment.centerRight,
+                      color: Colors.red,
+                      child: Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                    ),
+                    direction: DismissDirection.endToStart,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ExpenseDetailPage(
+                              expense: categoryList[index],
+                            ),
+                          ),
+                        ).then((value) {
+                          setState(() {
+                            categoryList[index] = value;
+                            calculateTotalExpense();
+                          });
+                        });
+                      },
+                      child: ExpenseCard(
+                        categoryList: categoryList,
+                        index: index,
+                      ),
                     ),
                   );
                 },
@@ -169,7 +189,13 @@ class _HomePageState extends State<HomePage> {
                     side: BorderSide(color: Colors.blue),
                   ),
                   onPressed: () {
-                    addCategoryDialog(context);
+                    addCategoryDialog(context).then((value) {
+                      if (value != null) {
+                        setState(() {
+                          categoryList.add(value);
+                        });
+                      }
+                    });
                   },
                   color: Colors.white,
                   child: Text(

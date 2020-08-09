@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:budget_planner/classes/ExpenseCategory.dart';
 
-addCategoryDialog(BuildContext context) {
+Future<ExpenseCategory> addCategoryDialog(BuildContext context) {
+  TextEditingController nameController = TextEditingController();
   List<bool> _selected = [true, false, false, false, false];
+  List<Color> colors = [
+    Colors.orange,
+    Colors.purple,
+    Colors.green,
+    Colors.blue,
+    Colors.teal
+  ];
+  int selectedIndex = 0;
   selectColor(int number) {
     for (int i = 0; i < _selected.length; i++) {
       _selected[i] = false;
     }
     _selected[number] = true;
+    selectedIndex = number;
   }
 
   return showDialog(
@@ -40,6 +51,7 @@ addCategoryDialog(BuildContext context) {
                       children: <Widget>[
                         Expanded(
                           child: TextField(
+                            controller: nameController,
                             decoration: InputDecoration(
                               labelText: "Category Name",
                             ),
@@ -67,7 +79,7 @@ addCategoryDialog(BuildContext context) {
                                   width: 15,
                                   height: 15,
                                   decoration: BoxDecoration(
-                                    color: Colors.orange,
+                                    color: colors[0],
                                     shape: BoxShape.circle,
                                   ),
                                 ),
@@ -93,7 +105,7 @@ addCategoryDialog(BuildContext context) {
                                   width: 15,
                                   height: 15,
                                   decoration: BoxDecoration(
-                                    color: Colors.purple,
+                                    color: colors[1],
                                     shape: BoxShape.circle,
                                   ),
                                 ),
@@ -119,7 +131,7 @@ addCategoryDialog(BuildContext context) {
                                   width: 15,
                                   height: 15,
                                   decoration: BoxDecoration(
-                                    color: Colors.green,
+                                    color: colors[2],
                                     shape: BoxShape.circle,
                                   ),
                                 ),
@@ -145,7 +157,7 @@ addCategoryDialog(BuildContext context) {
                                   width: 15,
                                   height: 15,
                                   decoration: BoxDecoration(
-                                    color: Colors.blue,
+                                    color: colors[3],
                                     shape: BoxShape.circle,
                                   ),
                                 ),
@@ -171,7 +183,7 @@ addCategoryDialog(BuildContext context) {
                                   width: 15,
                                   height: 15,
                                   decoration: BoxDecoration(
-                                    color: Colors.teal,
+                                    color: colors[4],
                                     shape: BoxShape.circle,
                                   ),
                                 ),
@@ -193,7 +205,14 @@ addCategoryDialog(BuildContext context) {
                             borderRadius: BorderRadius.circular(18.0),
                             side: BorderSide(color: Colors.blue),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (nameController.text.isNotEmpty) {
+                              String name = nameController.text;
+                              ExpenseCategory ec = ExpenseCategory(name, 0,
+                                  colors[selectedIndex], Icons.star, []);
+                              Navigator.of(context).pop(ec);
+                            }
+                          },
                           color: Colors.white,
                           child: Text(
                             "Add",

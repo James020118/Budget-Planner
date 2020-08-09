@@ -115,11 +115,28 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: DetailCard(
-                      details: widget.expense.dets,
-                      index: index,
+                  return Dismissible(
+                    key: Key(widget.expense.dets[index].title),
+                    onDismissed: (direction) {
+                      setState(() {
+                        widget.expense.removeDetail(index);
+                      });
+                    },
+                    background: Container(
+                      alignment: Alignment.centerRight,
+                      color: Colors.red,
+                      child: Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                    ),
+                    direction: DismissDirection.endToStart,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: DetailCard(
+                        details: widget.expense.dets,
+                        index: index,
+                      ),
                     ),
                   );
                 },
