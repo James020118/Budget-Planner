@@ -2,6 +2,7 @@ import 'package:budget_planner/classes/ExpenseCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:budget_planner/modules/DetailCard.dart';
 import 'package:budget_planner/modules/TransactionDialog.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ExpenseDetailPage extends StatefulWidget {
   final ExpenseCategory expense;
@@ -115,22 +116,24 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return Dismissible(
-                    key: Key(widget.expense.dets[index].title),
-                    onDismissed: (direction) {
-                      setState(() {
-                        widget.expense.removeDetail(index);
-                      });
-                    },
-                    background: Container(
-                      alignment: Alignment.centerRight,
-                      color: Colors.red,
-                      child: Icon(
-                        Icons.delete,
-                        color: Colors.white,
-                      ),
+                  return Slidable(
+                    key: ValueKey(index),
+                    actionPane: SlidableDrawerActionPane(),
+                    dismissal: SlidableDismissal(
+                      child: SlidableDrawerDismissal(),
                     ),
-                    direction: DismissDirection.endToStart,
+                    secondaryActions: [
+                      IconSlideAction(
+                        caption: "Delete",
+                        color: Colors.red,
+                        icon: Icons.delete,
+                        onTap: () {
+                          setState(() {
+                            widget.expense.removeDetail(index);
+                          });
+                        },
+                      ),
+                    ],
                     child: GestureDetector(
                       onTap: () {},
                       child: DetailCard(

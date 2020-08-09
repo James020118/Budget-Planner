@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'ExpenseDetailPage.dart';
 import 'package:budget_planner/modules/BudgetDialog.dart';
 import 'package:budget_planner/modules/CategoryDialog.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -137,23 +138,25 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return Dismissible(
-                    key: Key(categoryList[index].name),
-                    onDismissed: (direction) {
-                      setState(() {
-                        categoryList.removeAt(index);
-                        calculateTotalExpense();
-                      });
-                    },
-                    background: Container(
-                      alignment: Alignment.centerRight,
-                      color: Colors.red,
-                      child: Icon(
-                        Icons.delete,
-                        color: Colors.white,
-                      ),
+                  return Slidable(
+                    key: ValueKey(index),
+                    actionPane: SlidableDrawerActionPane(),
+                    dismissal: SlidableDismissal(
+                      child: SlidableDrawerDismissal(),
                     ),
-                    direction: DismissDirection.endToStart,
+                    secondaryActions: [
+                      IconSlideAction(
+                        caption: "Delete",
+                        color: Colors.red,
+                        icon: Icons.delete,
+                        onTap: () {
+                          setState(() {
+                            categoryList.removeAt(index);
+                            calculateTotalExpense();
+                          });
+                        },
+                      ),
+                    ],
                     child: GestureDetector(
                       onTap: () {
                         Navigator.push(
