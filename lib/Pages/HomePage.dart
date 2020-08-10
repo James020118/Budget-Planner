@@ -21,22 +21,49 @@ class _HomePageState extends State<HomePage> {
   double totalExpense = 0;
 
   // starting categories
-  ExpenseCategory housing =
-      ExpenseCategory("Housing", 0, Colors.orange, Icons.hotel, []);
-  ExpenseCategory food =
-      ExpenseCategory("Food", 0, Colors.purple, Icons.fastfood, []);
-  ExpenseCategory bills =
-      ExpenseCategory("Bills", 0, Colors.green, Icons.credit_card, []);
-  ExpenseCategory entertainment = ExpenseCategory(
-      "Entertainment", 0, Colors.lightBlue, Icons.local_play, []);
-  ExpenseCategory clothing =
-      ExpenseCategory("Clothing", 0, Colors.teal, Icons.shopping_basket, []);
+  ExpenseCategory housing = ExpenseCategory("Housing", 0, []);
+  ExpenseCategory food = ExpenseCategory("Food", 0, []);
+  ExpenseCategory bills = ExpenseCategory("Bills", 0, []);
+  ExpenseCategory entertainment = ExpenseCategory("Entertainment", 0, []);
+  ExpenseCategory clothing = ExpenseCategory("Clothing", 0, []);
   List<ExpenseCategory> categoryList = [];
 
   calculateTotalExpense() {
     totalExpense = 0;
     for (int i = 0; i < categoryList.length; i++) {
       totalExpense += categoryList[i].expense;
+    }
+  }
+
+  Icon _getIcon(int index) {
+    if (index == 0) {
+      return Icon(Icons.hotel);
+    } else if (index == 1) {
+      return Icon(Icons.fastfood);
+    } else if (index == 2) {
+      return Icon(Icons.credit_card);
+    } else if (index == 3) {
+      return Icon(Icons.movie);
+    } else if (index == 4) {
+      return Icon(Icons.shopping_basket);
+    } else {
+      return Icon(Icons.star);
+    }
+  }
+
+  Color _getColor(int index) {
+    if (index == 0) {
+      return Colors.orange;
+    } else if (index == 1) {
+      return Colors.purple;
+    } else if (index == 2) {
+      return Colors.teal;
+    } else if (index == 3) {
+      return Colors.green;
+    } else if (index == 4) {
+      return Colors.yellow;
+    } else {
+      return Colors.lightBlue;
     }
   }
 
@@ -169,6 +196,8 @@ class _HomePageState extends State<HomePage> {
                           MaterialPageRoute(
                             builder: (context) => ExpenseDetailPage(
                               expense: categoryList[index],
+                              titleIcon: _getIcon(index),
+                              titleColor: _getColor(index),
                             ),
                           ),
                         ).then((value) {

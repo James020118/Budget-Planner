@@ -6,8 +6,13 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ExpenseDetailPage extends StatefulWidget {
   final ExpenseCategory expense;
+  final Icon titleIcon;
+  final Color titleColor;
 
-  ExpenseDetailPage({@required this.expense});
+  ExpenseDetailPage(
+      {@required this.expense,
+      @required this.titleIcon,
+      @required this.titleColor});
 
   @override
   _ExpenseDetailPageState createState() => _ExpenseDetailPageState();
@@ -50,10 +55,10 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: widget.expense.categoryColor,
+                        color: widget.titleColor,
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(widget.expense.categoryIcon),
+                      child: widget.titleIcon,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4),
