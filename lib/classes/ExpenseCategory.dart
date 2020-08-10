@@ -28,7 +28,13 @@ class ExpenseCategory {
   ExpenseCategory.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     expense = json['expense'];
-    dets = json['dets'];
+    // print(json['dets']);
+    var temp = [];
+    for (int i = 0; i < json['dets'].length; i++) {
+      ExpenseDetail ed = ExpenseDetail.fromJson(json['dets'][i]);
+      temp.add(ed);
+    }
+    dets = temp.cast<ExpenseDetail>();
   }
 
   Map<String, dynamic> toJson() => {

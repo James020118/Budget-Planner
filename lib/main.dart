@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 import 'Pages/HomePage.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'classes/ExpenseCategory.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,38 +13,30 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: "Avenir Next Rounded"),
-      home: HomePage(
-        storage: LocalStorage(),
-      ),
+      home: HomePage(),
     );
   }
 }
 
-class LocalStorage {
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
+class SharedPref {
+  read(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return json.decode(prefs.getString(key));
   }
 
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/data.txt');
+  save(String key, List<ExpenseCategory> value) async {
+    final prefs = await SharedPreferences.getInstance();
+    var data = jsonEncode(value.map((e) => e.toJson()).toList());
+    prefs.setString(key, data);
   }
 
-  Future<List<ExpenseCategory>> readData() async {
-    try {
-      final file = await _localFile;
-      // TODO: Read the file
-
-    } catch (e) {
-      // If encountering an error, return 0
-      return [];
-    }
+  saveNum(String key, int value) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, json.encode(value));
   }
 
-  Future<File> writeData(List<ExpenseCategory> l) async {
-    final file = await _localFile;
-    final encodedList = jsonEncode(l);
-    return file.writeAsString(encodedList);
+  remove(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove(key);
   }
 }

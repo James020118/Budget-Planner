@@ -6,17 +6,15 @@ import 'ExpenseDetailPage.dart';
 import 'package:budget_planner/modules/BudgetDialog.dart';
 import 'package:budget_planner/modules/CategoryDialog.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:async/async.dart';
 
 class HomePage extends StatefulWidget {
-  final LocalStorage storage;
-
-  HomePage({@required this.storage});
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  SharedPref sharedPref = SharedPref();
   int totalBudget = 0;
   double totalExpense = 0;
 
@@ -67,17 +65,39 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  _loadSharedPrefs() {
+    return memo.runOnce(() async {
+      try {
+        var json = await sharedPref.read("data");
+        for (int i = 0; i < json.length; i++) {
+          ExpenseCategory e = ExpenseCategory.fromJson(json[i]);
+          categoryList.add(e);
+        }
+        var budget = await sharedPref.read("budget");
+        setState(() {
+          totalBudget = budget;
+          calculateTotalExpense();
+        });
+        return categoryList;
+      } catch (Excepetion) {
+        print(Excepetion.toString());
+        return [];
+      }
+    });
+  }
+
+  final AsyncMemoizer memo = AsyncMemoizer();
+
   @override
   void initState() {
     super.initState();
-    setState(() {
-      categoryList.add(housing);
-      categoryList.add(food);
-      categoryList.add(bills);
-      categoryList.add(entertainment);
-      categoryList.add(clothing);
-      calculateTotalExpense();
-    });
+    // categoryList.add(housing);
+    // categoryList.add(food);
+    // categoryList.add(bills);
+    // categoryList.add(entertainment);
+    // categoryList.add(clothing);
+    // sharedPref.remove("data");
+    // sharedPref.save("data", categoryList);
   }
 
   @override
@@ -140,6 +160,7 @@ class _HomePageState extends State<HomePage> {
                         setState(() {
                           if (value != null) {
                             totalBudget = value;
+                            sharedPref.saveNum("budget", totalBudget);
                           }
                         });
                       });
@@ -168,53 +189,66 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return Slidable(
-                    key: ValueKey(index),
-                    actionPane: SlidableDrawerActionPane(),
-                    dismissal: SlidableDismissal(
-                      child: SlidableDrawerDismissal(),
-                    ),
-                    secondaryActions: [
-                      IconSlideAction(
-                        caption: "Delete",
-                        color: Colors.red,
-                        icon: Icons.delete,
-                        onTap: () {
-                          setState(() {
-                            categoryList.removeAt(index);
-                            calculateTotalExpense();
-                          });
-                        },
-                      ),
-                    ],
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ExpenseDetailPage(
-                              expense: categoryList[index],
-                              titleIcon: _getIcon(index),
-                              titleColor: _getColor(index),
+              child: FutureBuilder(
+                future: _loadSharedPrefs(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Slidable(
+                          key: ValueKey(index),
+                          actionPane: SlidableDrawerActionPane(),
+                          dismissal: SlidableDismissal(
+                            child: SlidableDrawerDismissal(),
+                          ),
+                          secondaryActions: [
+                            IconSlideAction(
+                              caption: "Delete",
+                              color: Colors.red,
+                              icon: Icons.delete,
+                              onTap: () {
+                                setState(() {
+                                  categoryList.removeAt(index);
+                                  calculateTotalExpense();
+                                  sharedPref.save("data", categoryList);
+                                });
+                              },
+                            ),
+                          ],
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ExpenseDetailPage(
+                                    allExpense: categoryList,
+                                    index: index,
+                                    titleIcon: _getIcon(index),
+                                    titleColor: _getColor(index),
+                                  ),
+                                ),
+                              ).then((value) {
+                                setState(() {
+                                  categoryList = value;
+                                  calculateTotalExpense();
+                                });
+                              });
+                            },
+                            child: ExpenseCard(
+                              categoryList: categoryList,
+                              index: index,
                             ),
                           ),
-                        ).then((value) {
-                          setState(() {
-                            categoryList[index] = value;
-                            calculateTotalExpense();
-                          });
-                        });
+                        );
                       },
-                      child: ExpenseCard(
-                        categoryList: categoryList,
-                        index: index,
-                      ),
-                    ),
-                  );
+                      itemCount: categoryList.length,
+                    );
+                  }
+                  return Center(child: CircularProgressIndicator());
                 },
-                itemCount: categoryList.length,
               ),
             ),
             Padding(
@@ -230,6 +264,7 @@ class _HomePageState extends State<HomePage> {
                       if (value != null) {
                         setState(() {
                           categoryList.add(value);
+                          sharedPref.save("data", categoryList);
                         });
                       }
                     });

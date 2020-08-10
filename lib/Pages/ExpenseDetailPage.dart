@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:budget_planner/modules/DetailCard.dart';
 import 'package:budget_planner/modules/TransactionDialog.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:budget_planner/main.dart';
 
 class ExpenseDetailPage extends StatefulWidget {
-  final ExpenseCategory expense;
+  final List<ExpenseCategory> allExpense;
+  final int index;
   final Icon titleIcon;
   final Color titleColor;
 
   ExpenseDetailPage(
-      {@required this.expense,
+      {@required this.allExpense,
+      @required this.index,
       @required this.titleIcon,
       @required this.titleColor});
 
@@ -19,6 +22,8 @@ class ExpenseDetailPage extends StatefulWidget {
 }
 
 class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
+  SharedPref sharedPref = SharedPref();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +43,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pop(widget.expense);
+                    Navigator.of(context).pop(widget.allExpense);
                   },
                   child: Icon(
                     Icons.arrow_back,
@@ -63,7 +68,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Text(
-                        "${widget.expense.name} \$${widget.expense.expense.toStringAsFixed(2)}",
+                        "${widget.allExpense[widget.index].name} \$${widget.allExpense[widget.index].expense.toStringAsFixed(2)}",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -81,7 +86,8 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                     addTransactionDialog(context).then((value) {
                       if (value != null) {
                         setState(() {
-                          widget.expense.addDetail(value);
+                          widget.allExpense[widget.index].addDetail(value);
+                          sharedPref.save("data", widget.allExpense);
                         });
                       }
                     });
@@ -134,7 +140,8 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                         icon: Icons.delete,
                         onTap: () {
                           setState(() {
-                            widget.expense.removeDetail(index);
+                            widget.allExpense[widget.index].removeDetail(index);
+                            sharedPref.save("data", widget.allExpense);
                           });
                         },
                       ),
@@ -142,13 +149,13 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                     child: GestureDetector(
                       onTap: () {},
                       child: DetailCard(
-                        details: widget.expense.dets,
+                        details: widget.allExpense[widget.index].dets,
                         index: index,
                       ),
                     ),
                   );
                 },
-                itemCount: widget.expense.dets.length,
+                itemCount: widget.allExpense[widget.index].dets.length,
               ),
             ),
           ],

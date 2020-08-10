@@ -12,14 +12,14 @@ class ExpenseDetail {
   ExpenseDetail.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     amount = json['amount'];
-    t = json['t'];
+    t = DateTime.parse(json['t'].toString());
     description = json['description'];
   }
 
   Map<String, dynamic> toJson() => {
         'title': title,
         'amount': amount,
-        't': t,
+        't': t.toIso8601String(),
         'description': description,
       };
 }
