@@ -1,4 +1,5 @@
 import 'package:budget_planner/classes/ExpenseCategory.dart';
+import 'package:budget_planner/main.dart';
 import 'package:budget_planner/modules/ExpenseCard.dart';
 import 'package:flutter/material.dart';
 import 'ExpenseDetailPage.dart';
@@ -7,6 +8,10 @@ import 'package:budget_planner/modules/CategoryDialog.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HomePage extends StatefulWidget {
+  final LocalStorage storage;
+
+  HomePage({@required this.storage});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
