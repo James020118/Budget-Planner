@@ -81,7 +81,17 @@ class _HomePageState extends State<HomePage> {
         return categoryList;
       } catch (Excepetion) {
         print(Excepetion.toString());
-        return [];
+        categoryList.add(housing);
+        categoryList.add(food);
+        categoryList.add(bills);
+        categoryList.add(entertainment);
+        categoryList.add(clothing);
+        sharedPref.save("data", categoryList);
+        sharedPref.saveNum("budget", 0);
+        setState(() {
+          totalBudget = 0;
+        });
+        return categoryList;
       }
     });
   }
@@ -91,13 +101,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // categoryList.add(housing);
-    // categoryList.add(food);
-    // categoryList.add(bills);
-    // categoryList.add(entertainment);
-    // categoryList.add(clothing);
     // sharedPref.remove("data");
-    // sharedPref.save("data", categoryList);
   }
 
   @override
