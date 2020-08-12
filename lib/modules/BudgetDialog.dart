@@ -13,7 +13,7 @@ Future<int> createBudgetDialog(BuildContext context) {
           child: SingleChildScrollView(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey[800],
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Padding(
@@ -26,6 +26,7 @@ Future<int> createBudgetDialog(BuildContext context) {
                       "Enter New Budget",
                       style: TextStyle(
                         fontSize: 20,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -33,6 +34,9 @@ Future<int> createBudgetDialog(BuildContext context) {
                       children: <Widget>[
                         Expanded(
                           child: TextField(
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                             controller: myController,
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
@@ -41,6 +45,12 @@ Future<int> createBudgetDialog(BuildContext context) {
                             decoration: InputDecoration(
                               labelText: "Budget",
                               hintText: "Numbers Only",
+                              labelStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                              hintStyle: TextStyle(
+                                color: Colors.grey[500],
+                              ),
                             ),
                           ),
                         ),
@@ -63,7 +73,7 @@ Future<int> createBudgetDialog(BuildContext context) {
                                   .pop(int.parse(myController.text.toString()));
                             }
                           },
-                          color: Colors.white,
+                          color: Colors.grey[800],
                           child: Text(
                             "Modify",
                             style: TextStyle(
@@ -79,7 +89,7 @@ Future<int> createBudgetDialog(BuildContext context) {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          color: Colors.white,
+                          color: Colors.grey[800],
                           child: Text(
                             "Cancel",
                             style: TextStyle(

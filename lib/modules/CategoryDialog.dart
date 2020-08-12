@@ -16,7 +16,7 @@ Future<ExpenseCategory> addCategoryDialog(BuildContext context) {
             child: SingleChildScrollView(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.grey[800],
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
@@ -29,6 +29,7 @@ Future<ExpenseCategory> addCategoryDialog(BuildContext context) {
                         "New Category",
                         style: TextStyle(
                           fontSize: 20,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -36,9 +37,15 @@ Future<ExpenseCategory> addCategoryDialog(BuildContext context) {
                         children: <Widget>[
                           Expanded(
                             child: TextField(
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                               controller: nameController,
                               decoration: InputDecoration(
                                 labelText: "Category Name",
+                                labelStyle: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -63,7 +70,7 @@ Future<ExpenseCategory> addCategoryDialog(BuildContext context) {
                                 Navigator.of(context).pop(ec);
                               }
                             },
-                            color: Colors.white,
+                            color: Colors.grey[800],
                             child: Text(
                               "Add",
                               style: TextStyle(
@@ -79,7 +86,7 @@ Future<ExpenseCategory> addCategoryDialog(BuildContext context) {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            color: Colors.white,
+                            color: Colors.grey[800],
                             child: Text(
                               "Cancel",
                               style: TextStyle(

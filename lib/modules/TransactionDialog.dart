@@ -20,7 +20,7 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: Colors.white,
+                  color: Colors.grey[800],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -31,6 +31,7 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                       Text(
                         "Enter Transaction Details:",
                         style: TextStyle(
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
@@ -39,9 +40,15 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                         children: <Widget>[
                           Expanded(
                             child: TextField(
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                               controller: titleController,
                               decoration: InputDecoration(
                                 labelText: "Transaction Title",
+                                labelStyle: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -51,9 +58,15 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                         children: <Widget>[
                           Expanded(
                             child: TextField(
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                               controller: amountController,
                               decoration: InputDecoration(
                                 labelText: "Transaction Amount",
+                                labelStyle: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -70,6 +83,9 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                                 ? DateFormat('yyyy-MM-dd')
                                     .format(DateTime.now())
                                 : DateFormat('yyyy-MM-dd').format(t),
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                           RaisedButton(
                             shape: RoundedRectangleBorder(
@@ -90,7 +106,7 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                                 });
                               });
                             },
-                            color: Colors.white,
+                            color: Colors.grey[800],
                             child: Text(
                               "Select Date",
                               style: TextStyle(
@@ -104,9 +120,15 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                         children: <Widget>[
                           Expanded(
                             child: TextField(
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                               controller: descriptionController,
                               decoration: InputDecoration(
                                 labelText: "Transaction Description",
+                                labelStyle: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -136,7 +158,7 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                                 Navigator.of(context).pop(e);
                               }
                             },
-                            color: Colors.white,
+                            color: Colors.grey[800],
                             child: Text(
                               "Add",
                               style: TextStyle(
@@ -152,7 +174,7 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            color: Colors.white,
+                            color: Colors.grey[800],
                             child: Text(
                               "Cancel",
                               style: TextStyle(

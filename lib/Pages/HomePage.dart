@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,6 +119,7 @@ class _HomePageState extends State<HomePage> {
                   "Budget Planner",
                   style: TextStyle(
                     fontSize: 25,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -136,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 25,
                         color: totalExpense > totalBudget
                             ? Colors.red
-                            : Colors.black,
+                            : Colors.white,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Avenir Next Rounded',
                       ),
@@ -145,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                           text: " / \$$totalBudget",
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey,
+                            color: Colors.grey[400],
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Avenir Next Rounded',
                           ),
@@ -158,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.blue),
                     ),
-                    color: Colors.white,
+                    color: Colors.grey[800],
                     onPressed: () {
                       createBudgetDialog(context).then((value) {
                         setState(() {
@@ -188,6 +189,7 @@ class _HomePageState extends State<HomePage> {
                 "Details",
                 style: TextStyle(
                   fontSize: 15,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -273,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                       }
                     });
                   },
-                  color: Colors.white,
+                  color: Colors.grey[800],
                   child: Text(
                     "Add Category",
                     style: TextStyle(

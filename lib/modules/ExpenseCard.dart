@@ -50,7 +50,7 @@ class _ExpenseCardState extends State<ExpenseCard> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.grey[800],
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
@@ -78,9 +78,8 @@ class _ExpenseCardState extends State<ExpenseCard> {
               ),
               Text(
                 widget.categoryList[widget.index].name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               ),
               Expanded(
                 child: Padding(
@@ -90,7 +89,7 @@ class _ExpenseCardState extends State<ExpenseCard> {
                     child: Text(
                       "Spent: \$${widget.categoryList[widget.index].expense.toStringAsFixed(2)}",
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

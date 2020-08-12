@@ -38,7 +38,7 @@ class _DetailCardState extends State<DetailCard> {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.grey[800],
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -56,15 +56,27 @@ class _DetailCardState extends State<DetailCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("$transactionTitle"),
-                  Text("\$${transactionAmount.toStringAsFixed(2)}"),
-                  Text("$formattedDate"),
+                  Text(
+                    "$transactionTitle",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    "\$${transactionAmount.toStringAsFixed(2)}",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    "$formattedDate",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
               SizedBox(
                 height: 10,
               ),
-              Text("$transactionDescription"),
+              Text(
+                "$transactionDescription",
+                style: TextStyle(color: Colors.white),
+              ),
             ],
           ),
         ),

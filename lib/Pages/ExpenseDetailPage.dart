@@ -27,13 +27,13 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(80),
         child: Container(
           alignment: Alignment.bottomCenter,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.grey[900],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,6 +48,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                   child: Icon(
                     Icons.arrow_back,
                     size: 30,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -71,6 +72,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                         "${widget.allExpense[widget.index].name} \$${widget.allExpense[widget.index].expense.toStringAsFixed(2)}",
                         style: TextStyle(
                           fontSize: 20,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -95,6 +97,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                   child: Icon(
                     Icons.add,
                     size: 30,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -117,7 +120,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                     "Transactions",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
