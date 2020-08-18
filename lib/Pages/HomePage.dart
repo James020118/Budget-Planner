@@ -1,3 +1,4 @@
+import 'package:budget_planner/Pages/MenuPage.dart';
 import 'package:budget_planner/classes/ExpenseCategory.dart';
 import 'package:budget_planner/main.dart';
 import 'package:budget_planner/modules/ExpenseCard.dart';
@@ -108,7 +109,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
+        preferredSize: Size.fromHeight(55),
         child: Container(
           alignment: Alignment.bottomCenter,
           decoration: BoxDecoration(
@@ -122,14 +123,20 @@ class _HomePageState extends State<HomePage> {
                 Container(
                     width: MediaQuery.of(context).size.width / 9, height: 0.0),
                 Text(
-                  "BUDGET PLANNER",
+                  "Budget Planner",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
                       fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MenuPage(),
+                        ));
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 16.0),
                     child: Icon(
