@@ -132,10 +132,18 @@ class _HomePageState extends State<HomePage> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MenuPage(),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MenuPage(
+                          allExpense: categoryList,
+                        ),
+                      ),
+                    ).then((value) {
+                      setState(() {
+                        categoryList = value;
+                        calculateTotalExpense();
+                      });
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 16.0),
