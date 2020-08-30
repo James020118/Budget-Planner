@@ -18,10 +18,11 @@ class _HomePageState extends State<HomePage> {
   SharedPref sharedPref = SharedPref();
   int totalBudget = 0;
   double totalExpense = 0;
+  double moneyLeft = 0;
 
   // starting categories
   ExpenseCategory housing = ExpenseCategory("Housing", 0, []);
-  ExpenseCategory food = ExpenseCategory("Food", 0, []);
+  ExpenseCategory groceries = ExpenseCategory("Groceries", 0, []);
   ExpenseCategory bills = ExpenseCategory("Bills", 0, []);
   ExpenseCategory entertainment = ExpenseCategory("Entertainment", 0, []);
   ExpenseCategory clothing = ExpenseCategory("Clothing", 0, []);
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     for (int i = 0; i < categoryList.length; i++) {
       totalExpense += categoryList[i].expense;
     }
+    moneyLeft = totalBudget.toDouble() - totalExpense;
   }
 
   Icon _getIcon(int index) {
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> {
       } catch (Excepetion) {
         print(Excepetion.toString());
         categoryList.add(housing);
-        categoryList.add(food);
+        categoryList.add(groceries);
         categoryList.add(bills);
         categoryList.add(entertainment);
         categoryList.add(clothing);
@@ -91,6 +93,7 @@ class _HomePageState extends State<HomePage> {
         sharedPref.saveNum("budget", 0);
         setState(() {
           totalBudget = 0;
+          moneyLeft = totalBudget.toDouble();
         });
         return categoryList;
       }
@@ -165,57 +168,53 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  RichText(
-                    text: TextSpan(
-                      text: "\$${totalExpense.toStringAsFixed(2)}",
+              child: RichText(
+                text: TextSpan(
+                  text: "\$${totalExpense.toStringAsFixed(2)}",
+                  style: TextStyle(
+                    fontSize: 25,
+                    color:
+                        totalExpense > totalBudget ? Colors.red : Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Avenir Next Rounded',
+                  ),
+                  children: [
+                    TextSpan(
+                      text: " / \$$totalBudget",
                       style: TextStyle(
-                        fontSize: 25,
-                        color: totalExpense > totalBudget
-                            ? Colors.red
-                            : Colors.white,
+                        fontSize: 15,
+                        color: Colors.grey[400],
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Avenir Next Rounded',
                       ),
-                      children: [
-                        TextSpan(
-                          text: " / \$$totalBudget",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey[400],
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Avenir Next Rounded',
-                          ),
-                        ),
-                      ],
                     ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+              child: RichText(
+                text: TextSpan(
+                  text: "remaining: ",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey[400],
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Avenir Next Rounded',
                   ),
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.blue),
-                    ),
-                    color: Colors.grey[800],
-                    onPressed: () {
-                      createBudgetDialog(context).then((value) {
-                        setState(() {
-                          if (value != null) {
-                            totalBudget = value;
-                            sharedPref.saveNum("budget", totalBudget);
-                          }
-                        });
-                      });
-                    },
-                    child: Text(
-                      "Modify Budget",
+                  children: [
+                    TextSpan(
+                      text: "\$${moneyLeft.toStringAsFixed(2)}",
                       style: TextStyle(
-                        color: Colors.blue,
+                        fontSize: 25,
+                        color: moneyLeft >= 0 ? Colors.white : Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Avenir Next Rounded',
                       ),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -297,30 +296,57 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Center(
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.blue),
-                  ),
-                  onPressed: () {
-                    addCategoryDialog(context).then((value) {
-                      if (value != null) {
-                        setState(() {
-                          categoryList.add(value);
-                          sharedPref.save("data", categoryList);
-                        });
-                      }
-                    });
-                  },
-                  color: Colors.grey[800],
-                  child: Text(
-                    "Add Category",
-                    style: TextStyle(
-                      color: Colors.blue,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(color: Colors.blue),
+                    ),
+                    onPressed: () {
+                      addCategoryDialog(context).then((value) {
+                        if (value != null) {
+                          setState(() {
+                            categoryList.add(value);
+                            sharedPref.save("data", categoryList);
+                          });
+                        }
+                      });
+                    },
+                    color: Colors.grey[800],
+                    child: Text(
+                      "Add Category",
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
-                ),
+                  RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(color: Colors.blue),
+                    ),
+                    color: Colors.grey[800],
+                    onPressed: () {
+                      createBudgetDialog(context).then((value) {
+                        setState(() {
+                          if (value != null) {
+                            totalBudget = value;
+                            moneyLeft = totalBudget.toDouble() - totalExpense;
+                            sharedPref.saveNum("budget", totalBudget);
+                          }
+                        });
+                      });
+                    },
+                    child: Text(
+                      "Modify Budget",
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
