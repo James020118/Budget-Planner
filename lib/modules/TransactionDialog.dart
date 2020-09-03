@@ -80,8 +80,7 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                         children: <Widget>[
                           Text(
                             t == null
-                                ? DateFormat('yyyy-MM-dd')
-                                    .format(DateTime.now())
+                                ? DateFormat('yyyy-MM-dd').format(DateTime.now())
                                 : DateFormat('yyyy-MM-dd').format(t),
                             style: TextStyle(
                               color: Colors.white,

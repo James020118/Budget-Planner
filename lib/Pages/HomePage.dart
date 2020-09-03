@@ -1,6 +1,7 @@
 import 'package:budget_planner/Pages/MenuPage.dart';
 import 'package:budget_planner/classes/ExpenseCategory.dart';
 import 'package:budget_planner/main.dart';
+import 'package:budget_planner/modules/ChangeCategoryNameDialog.dart';
 import 'package:budget_planner/modules/ExpenseCard.dart';
 import 'package:flutter/material.dart';
 import 'ExpenseDetailPage.dart';
@@ -123,14 +124,10 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                    width: MediaQuery.of(context).size.width / 9, height: 0.0),
+                Container(width: MediaQuery.of(context).size.width / 9, height: 0.0),
                 Text(
                   "Budget Planner",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -173,8 +170,7 @@ class _HomePageState extends State<HomePage> {
                   text: "\$${totalExpense.toStringAsFixed(2)}",
                   style: TextStyle(
                     fontSize: 25,
-                    color:
-                        totalExpense > totalBudget ? Colors.red : Colors.white,
+                    color: totalExpense > totalBudget ? Colors.red : Colors.white,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Avenir Next Rounded',
                   ),
@@ -237,8 +233,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasData) {
+                  } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
                     return ListView.builder(
                       itemBuilder: (context, index) {
                         return Slidable(
@@ -278,6 +273,16 @@ class _HomePageState extends State<HomePage> {
                                   categoryList = value;
                                   calculateTotalExpense();
                                 });
+                              });
+                            },
+                            onLongPress: () {
+                              changeCategoryNameDialog(context, categoryList[index].name).then((value) {
+                                if (value != null) {
+                                  setState(() {
+                                    categoryList[index].name = value;
+                                    sharedPref.save("data", categoryList);
+                                  });
+                                }
                               });
                             },
                             child: ExpenseCard(

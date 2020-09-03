@@ -12,10 +12,7 @@ class ExpenseDetailPage extends StatefulWidget {
   final Color titleColor;
 
   ExpenseDetailPage(
-      {@required this.allExpense,
-      @required this.index,
-      @required this.titleIcon,
-      @required this.titleColor});
+      {@required this.allExpense, @required this.index, @required this.titleIcon, @required this.titleColor});
 
   @override
   _ExpenseDetailPageState createState() => _ExpenseDetailPageState();
@@ -39,8 +36,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).pop(widget.allExpense);
@@ -81,8 +77,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: GestureDetector(
                   onTap: () {
                     addTransactionDialog(context).then((value) {
@@ -150,7 +145,6 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                       ),
                     ],
                     child: GestureDetector(
-                      onTap: () {},
                       child: DetailCard(
                         details: widget.allExpense[widget.index].dets,
                         index: index,
