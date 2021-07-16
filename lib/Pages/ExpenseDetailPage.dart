@@ -11,8 +11,12 @@ class ExpenseDetailPage extends StatefulWidget {
   final Icon titleIcon;
   final Color titleColor;
 
-  ExpenseDetailPage(
-      {@required this.allExpense, @required this.index, @required this.titleIcon, @required this.titleColor});
+  ExpenseDetailPage({
+    required this.allExpense,
+    required this.index,
+    required this.titleIcon,
+    required this.titleColor,
+  });
 
   @override
   _ExpenseDetailPageState createState() => _ExpenseDetailPageState();

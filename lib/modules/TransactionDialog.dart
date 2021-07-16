@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:budget_planner/classes/ExpenseDetail.dart';
 import 'package:intl/intl.dart';
 
-Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
+Future<ExpenseDetail?> addTransactionDialog(BuildContext context) {
   TextEditingController titleController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  DateTime t;
+  DateTime? selectedTime;
 
   return showDialog(
       context: context,
@@ -79,33 +79,37 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Text(
-                            t == null
+                            selectedTime == null
                                 ? DateFormat('yyyy-MM-dd').format(DateTime.now())
-                                : DateFormat('yyyy-MM-dd').format(t),
+                                : DateFormat('yyyy-MM-dd').format(selectedTime!),
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.blue),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  side: BorderSide(color: Colors.blue),
+                                ),
+                              ),
                             ),
                             onPressed: () {
                               showDatePicker(
                                 context: context,
-                                initialDate: t == null ? DateTime.now() : t,
+                                initialDate: selectedTime == null ? DateTime.now() : selectedTime!,
                                 firstDate: DateTime(2000),
                                 lastDate: DateTime(2030),
                               ).then((value) {
                                 setState(() {
                                   if (value != null) {
-                                    t = value;
+                                    selectedTime = value;
                                   }
                                 });
                               });
                             },
-                            color: Colors.grey[800],
                             child: Text(
                               "Select Date",
                               style: TextStyle(
@@ -139,10 +143,15 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.blue),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  side: BorderSide(color: Colors.blue),
+                                ),
+                              ),
                             ),
                             onPressed: () {
                               if (titleController.text.isNotEmpty &&
@@ -151,13 +160,12 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                                 ExpenseDetail e = ExpenseDetail(
                                   title: titleController.text,
                                   amount: double.parse(amountController.text),
-                                  t: t == null ? DateTime.now() : t,
+                                  t: selectedTime == null ? DateTime.now() : selectedTime!,
                                   description: descriptionController.text,
                                 );
                                 Navigator.of(context).pop(e);
                               }
                             },
-                            color: Colors.grey[800],
                             child: Text(
                               "Add",
                               style: TextStyle(
@@ -165,15 +173,19 @@ Future<ExpenseDetail> addTransactionDialog(BuildContext context) {
                               ),
                             ),
                           ),
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.red),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  side: BorderSide(color: Colors.red),
+                                ),
+                              ),
                             ),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            color: Colors.grey[800],
                             child: Text(
                               "Cancel",
                               style: TextStyle(

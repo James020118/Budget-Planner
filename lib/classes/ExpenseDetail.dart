@@ -1,13 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 
-@JsonSerializable(nullable: false)
+@JsonSerializable()
 class ExpenseDetail {
-  String title;
-  double amount;
-  DateTime t;
-  String description;
+  late String title;
+  late double amount;
+  late DateTime t;
+  late String description;
 
-  ExpenseDetail({this.title, this.amount, this.t, this.description});
+  ExpenseDetail({
+    required this.title,
+    required this.amount,
+    required this.t,
+    required this.description,
+  });
 
   ExpenseDetail.fromJson(Map<String, dynamic> json) {
     title = json['title'];

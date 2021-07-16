@@ -5,7 +5,9 @@ import 'package:budget_planner/classes/ExpenseCategory.dart';
 class MenuPage extends StatefulWidget {
   final List<ExpenseCategory> allExpense;
 
-  MenuPage({@required this.allExpense});
+  MenuPage({
+    required this.allExpense,
+  });
 
   @override
   _MenuPageState createState() => _MenuPageState();
@@ -44,13 +46,9 @@ class _MenuPageState extends State<MenuPage> {
                 ),
                 Text(
                   "Options",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                Container(
-                    width: MediaQuery.of(context).size.width / 9, height: 0.0),
+                Container(width: MediaQuery.of(context).size.width / 9, height: 0.0),
               ],
             ),
           ),
@@ -62,11 +60,15 @@ class _MenuPageState extends State<MenuPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                  ),
                 ),
-                color: Colors.red,
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -98,27 +100,26 @@ class _MenuPageState extends State<MenuPage> {
                                   height: 20,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
-                                    RaisedButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.blue),
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(color: Colors.blue),
+                                          ),
+                                        ),
                                       ),
                                       onPressed: () {
-                                        for (int i = 0;
-                                            i < widget.allExpense.length;
-                                            i++) {
+                                        for (int i = 0; i < widget.allExpense.length; i++) {
                                           widget.allExpense[i].dets.clear();
                                           widget.allExpense[i].expense = 0;
                                         }
-                                        sharedPref.save(
-                                            "data", widget.allExpense);
+                                        sharedPref.save("data", widget.allExpense);
                                         Navigator.of(context).pop();
                                       },
-                                      color: Colors.grey[800],
                                       child: Text(
                                         "Clear",
                                         style: TextStyle(
@@ -126,16 +127,19 @@ class _MenuPageState extends State<MenuPage> {
                                         ),
                                       ),
                                     ),
-                                    RaisedButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.red),
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(color: Colors.red),
+                                          ),
+                                        ),
                                       ),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
-                                      color: Colors.grey[800],
                                       child: Text(
                                         "Cancel",
                                         style: TextStyle(

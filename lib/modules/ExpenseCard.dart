@@ -2,10 +2,13 @@ import '../classes/ExpenseCategory.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseCard extends StatefulWidget {
-  final List<ExpenseCategory> categoryList;
-  final int index;
+  late final List<ExpenseCategory> categoryList;
+  late final int index;
 
-  ExpenseCard({@required this.categoryList, @required this.index});
+  ExpenseCard({
+    required this.categoryList,
+    required this.index,
+  });
 
   @override
   _ExpenseCardState createState() => _ExpenseCardState();
@@ -78,8 +81,10 @@ class _ExpenseCardState extends State<ExpenseCard> {
               ),
               Text(
                 widget.categoryList[widget.index].name,
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
               Expanded(
                 child: Padding(

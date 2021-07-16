@@ -3,21 +3,24 @@ import 'package:budget_planner/classes/ExpenseDetail.dart';
 import 'package:intl/intl.dart';
 
 class DetailCard extends StatefulWidget {
-  final List<ExpenseDetail> details;
-  final int index;
+  late final List<ExpenseDetail> details;
+  late final int index;
 
-  DetailCard({@required this.details, @required this.index});
+  DetailCard({
+    required this.details,
+    required this.index,
+  });
 
   @override
   _DetailCardState createState() => _DetailCardState();
 }
 
 class _DetailCardState extends State<DetailCard> {
-  String transactionTitle;
-  double transactionAmount;
-  DateTime transactionTime;
-  String transactionDescription;
-  String formattedDate;
+  late String transactionTitle;
+  late double transactionAmount;
+  late DateTime transactionTime;
+  late String transactionDescription;
+  late String formattedDate;
 
   @override
   void initState() {

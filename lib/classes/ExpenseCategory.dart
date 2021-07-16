@@ -1,23 +1,23 @@
 import 'package:budget_planner/classes/ExpenseDetail.dart';
 
 class ExpenseCategory {
-  String name;
-  double expense;
-  List<ExpenseDetail> dets;
+  late String name;
+  late double expense;
+  late List<ExpenseDetail> dets;
 
-  ExpenseCategory(String n, double e, List<ExpenseDetail> d) {
-    this.name = n;
-    this.expense = e;
-    this.dets = d;
+  ExpenseCategory(String name, double expense, List<ExpenseDetail> dets) {
+    this.name = name;
+    this.expense = expense;
+    this.dets = dets;
   }
 
   void addExpense(double amount) {
     expense += amount;
   }
 
-  void addDetail(ExpenseDetail d) {
-    dets.add(d);
-    expense += d.amount;
+  void addDetail(ExpenseDetail detail) {
+    dets.add(detail);
+    expense += detail.amount;
   }
 
   void removeDetail(int index) {

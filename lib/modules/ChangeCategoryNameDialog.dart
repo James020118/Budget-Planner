@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<String> changeCategoryNameDialog(BuildContext context, String content) {
+Future<String?> changeCategoryNameDialog(BuildContext context, String content) {
   TextEditingController nameController = TextEditingController();
   nameController.text = content;
 
@@ -57,17 +57,21 @@ Future<String> changeCategoryNameDialog(BuildContext context, String content) {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.blue),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  side: BorderSide(color: Colors.blue),
+                                ),
+                              ),
                             ),
                             onPressed: () {
                               if (nameController.text.isNotEmpty) {
                                 Navigator.of(context).pop(nameController.text);
                               }
                             },
-                            color: Colors.grey[800],
                             child: Text(
                               "Change",
                               style: TextStyle(
@@ -75,15 +79,19 @@ Future<String> changeCategoryNameDialog(BuildContext context, String content) {
                               ),
                             ),
                           ),
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.red),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  side: BorderSide(color: Colors.red),
+                                ),
+                              ),
                             ),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            color: Colors.grey[800],
                             child: Text(
                               "Cancel",
                               style: TextStyle(

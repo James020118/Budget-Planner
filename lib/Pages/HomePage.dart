@@ -304,10 +304,15 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.blue),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.blue),
+                        ),
+                      ),
                     ),
                     onPressed: () {
                       addCategoryDialog(context).then((value) {
@@ -319,7 +324,6 @@ class _HomePageState extends State<HomePage> {
                         }
                       });
                     },
-                    color: Colors.grey[800],
                     child: Text(
                       "Add Category",
                       style: TextStyle(
@@ -327,12 +331,16 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.blue),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.blue),
+                        ),
+                      ),
                     ),
-                    color: Colors.grey[800],
                     onPressed: () {
                       createBudgetDialog(context).then((value) {
                         setState(() {
