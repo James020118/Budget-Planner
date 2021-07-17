@@ -1,14 +1,15 @@
 import 'package:budget_planner/Pages/MenuPage.dart';
 import 'package:budget_planner/classes/ExpenseCategory.dart';
 import 'package:budget_planner/main.dart';
-import 'package:budget_planner/modules/ChangeCategoryNameDialog.dart';
-import 'package:budget_planner/modules/ExpenseCard.dart';
+import 'package:budget_planner/models/ChangeCategoryNameDialog.dart';
+import 'package:budget_planner/models/ExpenseCard.dart';
 import 'package:flutter/material.dart';
 import 'ExpenseDetailPage.dart';
-import 'package:budget_planner/modules/BudgetDialog.dart';
-import 'package:budget_planner/modules/CategoryDialog.dart';
+import 'package:budget_planner/models/CustomDialog.dart';
+import 'package:budget_planner/models/CategoryDialog.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:async/async.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,6 +21,8 @@ class _HomePageState extends State<HomePage> {
   int totalBudget = 0;
   double totalExpense = 0;
   double moneyLeft = 0;
+
+  final budgetTextEditingController = TextEditingController();
 
   // starting categories
   ExpenseCategory housing = ExpenseCategory("Housing", 0, []);
@@ -342,10 +345,21 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     onPressed: () {
-                      createBudgetDialog(context).then((value) {
+                      /// Modify Budget dialog
+                      createCustomDialogWithTextField(
+                        context: context,
+                        title: 'Enter New Budget',
+                        button1Text: 'Modify',
+                        button2Text: 'Cancel',
+                        controller: budgetTextEditingController,
+                        textFieldLabelText: 'Budget',
+                        textFieldHintText: 'Numbers Only',
+                        textFieldInputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
+                      ).then((value) {
                         setState(() {
+                          budgetTextEditingController.clear();
                           if (value != null) {
-                            totalBudget = value;
+                            totalBudget = int.parse(value);
                             moneyLeft = totalBudget.toDouble() - totalExpense;
                             sharedPref.saveNum("budget", totalBudget);
                           }
