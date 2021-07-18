@@ -4,11 +4,12 @@ class RoundedCornerButton extends StatelessWidget {
   RoundedCornerButton(
     this.text, {
     Key? key,
-    this.buttonColor = Colors.blue,
+    this.buttonColor = Colors.black,
     this.buttonBorderRadius = 18.0,
-    this.buttonBorderColor = Colors.black,
+    this.buttonBorderColor = Colors.blue,
     required this.onPressed,
-    this.textColor = Colors.black,
+    this.textColor = Colors.blue,
+    this.isTextBold = false,
   }) : super(key: key);
 
   final Color buttonColor;
@@ -17,6 +18,7 @@ class RoundedCornerButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final Color textColor;
+  final bool isTextBold;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class RoundedCornerButton extends StatelessWidget {
         text,
         style: TextStyle(
           color: textColor,
+          fontWeight: isTextBold ? FontWeight.bold : FontWeight.normal,
         ),
       ),
     );

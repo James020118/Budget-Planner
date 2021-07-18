@@ -1,5 +1,6 @@
-import 'package:budget_planner/main.dart';
 import 'package:flutter/material.dart';
+
+import 'package:budget_planner/main.dart';
 import 'package:budget_planner/classes/ExpenseCategory.dart';
 
 class MenuPage extends StatefulWidget {

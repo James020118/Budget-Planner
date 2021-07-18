@@ -1,8 +1,10 @@
 import 'dart:convert';
-import 'Pages/HomePage.dart';
+
 import 'package:flutter/material.dart';
-import 'classes/ExpenseCategory.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Pages/HomePage.dart';
+import 'classes/ExpenseCategory.dart';
 
 void main() {
   runApp(MyApp());

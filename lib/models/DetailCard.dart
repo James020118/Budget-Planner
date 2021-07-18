@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:budget_planner/classes/ExpenseDetail.dart';
 import 'package:intl/intl.dart';
+
+import 'package:budget_planner/classes/ExpenseDetail.dart';
 
 class DetailCard extends StatefulWidget {
   late final List<ExpenseDetail> details;

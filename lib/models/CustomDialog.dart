@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'RoundedCornerButton.dart';
 
 Future<dynamic> createCustomDialogWithTextField({
@@ -25,8 +26,7 @@ Future<dynamic> createCustomDialogWithTextField({
         RoundedCornerButton(
           button1Text,
           buttonColor: Colors.grey[800]!,
-          buttonBorderColor: Colors.blue,
-          textColor: Colors.blue,
+          isTextBold: true,
           onPressed: () {
             if (controller.text.isNotEmpty) {
               final returnObject = createReturnObject != null ? createReturnObject() : null;
@@ -39,6 +39,7 @@ Future<dynamic> createCustomDialogWithTextField({
           buttonColor: Colors.grey[800]!,
           buttonBorderColor: Colors.red,
           textColor: Colors.red,
+          isTextBold: true,
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -55,10 +56,13 @@ Future<dynamic> createCustomDialogWithTextField({
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+            vertical: 24.0,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
                 title,
