@@ -1,15 +1,14 @@
-import 'package:budget_planner/Pages/MenuPage.dart';
-import 'package:budget_planner/classes/ExpenseCategory.dart';
-import 'package:budget_planner/main.dart';
-import 'package:budget_planner/models/ChangeCategoryNameDialog.dart';
-import 'package:budget_planner/models/ExpenseCard.dart';
 import 'package:flutter/material.dart';
-import 'ExpenseDetailPage.dart';
-import 'package:budget_planner/models/CustomDialog.dart';
-import 'package:budget_planner/models/CategoryDialog.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
+
+import 'package:budget_planner/Pages/MenuPage.dart';
+import 'package:budget_planner/classes/ExpenseCategory.dart';
+import 'package:budget_planner/main.dart';
+import 'package:budget_planner/models/ExpenseCard.dart';
+import 'ExpenseDetailPage.dart';
+import 'package:budget_planner/models/CustomDialog.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,6 +22,8 @@ class _HomePageState extends State<HomePage> {
   double moneyLeft = 0;
 
   final budgetTextEditingController = TextEditingController();
+  final newCategoryTextEditingController = TextEditingController();
+  final changeCategoryNameTextEditingController = TextEditingController();
 
   // starting categories
   ExpenseCategory housing = ExpenseCategory("Housing", 0, []);
@@ -110,6 +111,18 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // sharedPref.remove("data");
+  }
+
+  String modifyBudgetDialogReturn() {
+    return budgetTextEditingController.text;
+  }
+
+  ExpenseCategory newCategoryDialogReturn() {
+    return ExpenseCategory(newCategoryTextEditingController.text, 0, []);
+  }
+
+  String chaneNameDialogReturn() {
+    return changeCategoryNameTextEditingController.text;
   }
 
   @override
@@ -279,13 +292,22 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             onLongPress: () {
-                              changeCategoryNameDialog(context, categoryList[index].name).then((value) {
-                                if (value != null) {
-                                  setState(() {
-                                    categoryList[index].name = value;
+                              createCustomDialogWithTextField(
+                                context: context,
+                                title: 'Change Name',
+                                button1Text: 'Change',
+                                button2Text: 'Cancel',
+                                controller: changeCategoryNameTextEditingController,
+                                textFieldLabelText: 'Category Name',
+                                textFieldPrefilledString: categoryList[index].name,
+                                createReturnObject: chaneNameDialogReturn,
+                              ).then((value) {
+                                setState(() {
+                                  if (value != null) {
+                                    categoryList[index].name = value as String;
                                     sharedPref.save("data", categoryList);
-                                  });
-                                }
+                                  }
+                                });
                               });
                             },
                             child: ExpenseCard(
@@ -318,13 +340,22 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     onPressed: () {
-                      addCategoryDialog(context).then((value) {
-                        if (value != null) {
-                          setState(() {
-                            categoryList.add(value);
+                      createCustomDialogWithTextField(
+                        context: context,
+                        title: 'New Category',
+                        button1Text: 'Add',
+                        button2Text: 'Cancel',
+                        controller: newCategoryTextEditingController,
+                        textFieldLabelText: 'Category Name',
+                        createReturnObject: newCategoryDialogReturn,
+                      ).then((value) {
+                        setState(() {
+                          newCategoryTextEditingController.clear();
+                          if (value != null) {
+                            categoryList.add(value as ExpenseCategory);
                             sharedPref.save("data", categoryList);
-                          });
-                        }
+                          }
+                        });
                       });
                     },
                     child: Text(
@@ -355,6 +386,7 @@ class _HomePageState extends State<HomePage> {
                         textFieldLabelText: 'Budget',
                         textFieldHintText: 'Numbers Only',
                         textFieldInputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
+                        createReturnObject: modifyBudgetDialogReturn,
                       ).then((value) {
                         setState(() {
                           budgetTextEditingController.clear();

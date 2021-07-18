@@ -10,8 +10,14 @@ Future<dynamic> createCustomDialogWithTextField({
   required TextEditingController controller,
   String? textFieldLabelText,
   String? textFieldHintText,
+  String? textFieldPrefilledString,
   List<TextInputFormatter>? textFieldInputFormatters,
+  Function()? createReturnObject,
 }) {
+  if (textFieldPrefilledString != null) {
+    controller.text = textFieldPrefilledString;
+  }
+
   Widget _buildButtonRow() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -23,7 +29,8 @@ Future<dynamic> createCustomDialogWithTextField({
           textColor: Colors.blue,
           onPressed: () {
             if (controller.text.isNotEmpty) {
-              Navigator.of(context).pop(controller.text.toString());
+              final returnObject = createReturnObject != null ? createReturnObject() : null;
+              Navigator.of(context).pop(returnObject);
             }
           },
         ),
