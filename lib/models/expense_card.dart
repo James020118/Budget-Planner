@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../classes/ExpenseCategory.dart';
+import '../classes/expense_category.dart';
 
 class ExpenseCard extends StatefulWidget {
   late final List<ExpenseCategory> categoryList;

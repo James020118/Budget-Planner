@@ -3,13 +3,14 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 
-import 'package:budget_planner/Pages/MenuPage.dart';
-import 'package:budget_planner/classes/ExpenseCategory.dart';
-import 'package:budget_planner/main.dart';
-import 'package:budget_planner/models/ExpenseCard.dart';
-import 'ExpenseDetailPage.dart';
-import 'package:budget_planner/models/CustomDialog.dart';
-import 'package:budget_planner/models/RoundedCornerButton.dart';
+import 'package:budget_planner/Pages/menu_page.dart';
+import 'package:budget_planner/classes/expense_category.dart';
+import 'package:budget_planner/models/shared_pref.dart';
+import 'package:budget_planner/models/expense_card.dart';
+import 'detail_page.dart';
+import 'package:budget_planner/models/custom_dialog.dart';
+import 'package:budget_planner/models/rounded_corner_button.dart';
+import 'package:budget_planner/Pages/menu_page_view_model.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -195,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => MenuPage(
-                        allExpense: categoryList,
+                        MenuPageViewModel(allExpenseCategories: categoryList),
                       ),
                     ),
                   ).then((value) {

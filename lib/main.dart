@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Pages/HomePage.dart';
-import 'classes/ExpenseCategory.dart';
+import 'Pages/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,28 +14,5 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: "Avenir Next Rounded"),
       home: HomePage(),
     );
-  }
-}
-
-class SharedPref {
-  read(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return json.decode(prefs.getString(key) ?? '');
-  }
-
-  save(String key, List<ExpenseCategory> value) async {
-    final prefs = await SharedPreferences.getInstance();
-    var data = jsonEncode(value.map((e) => e.toJson()).toList());
-    prefs.setString(key, data);
-  }
-
-  saveNum(String key, int value) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, json.encode(value));
-  }
-
-  remove(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove(key);
   }
 }

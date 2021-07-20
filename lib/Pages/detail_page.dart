@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import 'package:budget_planner/classes/ExpenseCategory.dart';
-import 'package:budget_planner/models/DetailCard.dart';
-import 'package:budget_planner/models/TransactionDialog.dart';
-import 'package:budget_planner/main.dart';
+import 'package:budget_planner/classes/expense_category.dart';
+import 'package:budget_planner/models/detail_card.dart';
+import 'package:budget_planner/models/transaction_dialog.dart';
+import 'package:budget_planner/models/shared_pref.dart';
 
 class ExpenseDetailPage extends StatefulWidget {
   final List<ExpenseCategory> allExpense;

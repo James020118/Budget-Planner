@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'RoundedCornerButton.dart';
+import 'rounded_corner_button.dart';
 
 Future<dynamic> createCustomDialogWithTextField({
   required BuildContext context,

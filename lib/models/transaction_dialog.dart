@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:budget_planner/classes/ExpenseDetail.dart';
-import 'RoundedCornerButton.dart';
+import 'package:budget_planner/classes/expense_detail.dart';
+import 'rounded_corner_button.dart';
 
 Future<ExpenseDetail?> addTransactionDialog(BuildContext context) {
   TextEditingController titleController = TextEditingController();

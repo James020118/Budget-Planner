@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 
-import 'package:budget_planner/main.dart';
-import 'package:budget_planner/classes/ExpenseCategory.dart';
-import 'package:budget_planner/models/RoundedCornerButton.dart';
+import 'package:budget_planner/models/rounded_corner_button.dart';
+import 'menu_page_view_model.dart';
 
 class MenuPage extends StatefulWidget {
-  final List<ExpenseCategory> allExpense;
+  final MenuPageViewModel viewModel;
 
-  MenuPage({
-    required this.allExpense,
-  });
+  MenuPage(this.viewModel);
 
   @override
-  _MenuPageState createState() => _MenuPageState();
+  _MenuPageState createState() => _MenuPageState(viewModel);
 }
 
 class _MenuPageState extends State<MenuPage> {
-  SharedPref sharedPref = SharedPref();
+  final MenuPageViewModel viewModel;
+
+  _MenuPageState(this.viewModel);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,7 @@ class _MenuPageState extends State<MenuPage> {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(widget.allExpense);
+                  Navigator.of(context).pop(viewModel.allExpenseCategories);
                 },
                 child: Padding(
                   padding: EdgeInsets.only(left: 16.0),
@@ -125,12 +124,7 @@ class _MenuPageState extends State<MenuPage> {
                     buttonColor: Colors.grey[800]!,
                     isTextBold: true,
                     onPressed: () {
-                      for (int i = 0; i < widget.allExpense.length; i++) {
-                        widget.allExpense[i].dets.clear();
-                        widget.allExpense[i].expense = 0;
-                      }
-                      sharedPref.save("data", widget.allExpense);
-                      Navigator.of(context).pop();
+                      viewModel.clearCategoriesAndPop(context);
                     },
                   ),
                   RoundedCornerButton(

@@ -1,4 +1,4 @@
-import 'package:budget_planner/classes/ExpenseDetail.dart';
+import 'package:budget_planner/classes/expense_detail.dart';
 
 class ExpenseCategory {
   late String name;
