@@ -1,3 +1,4 @@
+import 'package:budget_planner/Pages/detail_page_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:async/async.dart';
@@ -313,10 +314,13 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ExpenseDetailPage(
-                            allExpense: categoryList,
-                            index: index,
-                            titleIcon: _getIcon(index),
-                            titleColor: _getColor(index),
+                            DetailPageViewModel(
+                              allExpense: categoryList,
+                              index: index,
+                              selectedCategory: categoryList[index],
+                              titleIcon: _getIcon(index),
+                              titleColor: _getColor(index),
+                            ),
                           ),
                         ),
                       ).then((value) {

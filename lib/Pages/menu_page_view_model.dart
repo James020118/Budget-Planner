@@ -10,11 +10,13 @@ part 'menu_page_view_model.g.dart';
 class MenuPageViewModel = _MenuPageViewModel with _$MenuPageViewModel;
 
 abstract class _MenuPageViewModel extends ViewModel with Store {
-  SharedPref sharedPref = SharedPref();
+  final sharedPref = SharedPref();
 
   List<ExpenseCategory> allExpenseCategories;
 
-  _MenuPageViewModel({required this.allExpenseCategories});
+  _MenuPageViewModel({
+    required this.allExpenseCategories,
+  });
 
   void clearCategoriesAndPop(BuildContext context) {
     for (int i = 0; i < allExpenseCategories.length; i++) {

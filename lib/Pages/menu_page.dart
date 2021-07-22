@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:beyond_helpers/beyond_helpers.dart';
 
 import 'package:budget_planner/models/rounded_corner_button.dart';
 import 'menu_page_view_model.dart';
@@ -19,32 +20,12 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: _buildAppBar(),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              RoundedCornerButton(
-                'Clear Month',
-                buttonBorderColor: Colors.red,
-                buttonColor: Colors.red,
-                textColor: Colors.white,
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return _buildDialogBody();
-                    },
-                  );
-                },
-              )
-            ],
-          ),
-        ),
+    return ViewModelRoot(
+      viewModel: viewModel,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: _buildAppBar(),
+        body: _buildBody(),
       ),
     );
   }
@@ -81,6 +62,33 @@ class _MenuPageState extends State<MenuPage> {
               Container(width: MediaQuery.of(context).size.width / 9, height: 0.0),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBody() {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            RoundedCornerButton(
+              'Clear Month',
+              buttonBorderColor: Colors.red,
+              buttonColor: Colors.red,
+              textColor: Colors.white,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return _buildDialogBody();
+                  },
+                );
+              },
+            )
+          ],
         ),
       ),
     );

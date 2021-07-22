@@ -1,37 +1,35 @@
+import 'package:budget_planner/Pages/detail_page_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:beyond_helpers/beyond_helpers.dart';
 
-import 'package:budget_planner/classes/expense_category.dart';
 import 'package:budget_planner/models/detail_card.dart';
 import 'package:budget_planner/models/transaction_dialog.dart';
-import 'package:budget_planner/models/shared_pref.dart';
 
 class ExpenseDetailPage extends StatefulWidget {
-  final List<ExpenseCategory> allExpense;
-  final int index;
-  final Icon titleIcon;
-  final Color titleColor;
+  final DetailPageViewModel viewModel;
 
-  ExpenseDetailPage({
-    required this.allExpense,
-    required this.index,
-    required this.titleIcon,
-    required this.titleColor,
-  });
+  ExpenseDetailPage(this.viewModel);
 
   @override
-  _ExpenseDetailPageState createState() => _ExpenseDetailPageState();
+  _ExpenseDetailPageState createState() => _ExpenseDetailPageState(viewModel);
 }
 
 class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
-  SharedPref sharedPref = SharedPref();
+  final DetailPageViewModel viewModel;
+
+  _ExpenseDetailPageState(this.viewModel);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: _buildAppBar(),
-      body: _buildBody(),
+    return ViewModelRoot(
+      viewModel: viewModel,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: _buildAppBar(),
+        body: _buildBody(),
+      ),
     );
   }
 
@@ -50,7 +48,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(widget.allExpense);
+                  Navigator.of(context).pop(viewModel.allExpense);
                 },
                 child: Icon(
                   Icons.arrow_back,
@@ -59,33 +57,37 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: widget.titleColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: widget.titleIcon,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Text(
-                      "${widget.allExpense[widget.index].name} \$${widget.allExpense[widget.index].expense.toStringAsFixed(2)}",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+            Observer(
+              builder: (_) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: viewModel.titleColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: viewModel.titleIcon,
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Text(
+                          "${viewModel.selectedCategory.name} \$${viewModel.selectedCategory.expense.toStringAsFixed(2)}",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -93,10 +95,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                 onTap: () {
                   addTransactionDialog(context).then((value) {
                     if (value != null) {
-                      setState(() {
-                        widget.allExpense[widget.index].addDetail(value);
-                        sharedPref.save("data", widget.allExpense);
-                      });
+                      viewModel.addTransaction(value);
                     }
                   });
                 },
@@ -136,39 +135,38 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Slidable(
-                  key: ValueKey(index),
-                  actionPane: SlidableDrawerActionPane(),
-                  dismissal: SlidableDismissal(
-                    child: SlidableDrawerDismissal(),
-                  ),
-                  secondaryActions: [
-                    IconSlideAction(
-                      caption: "Delete",
-                      color: Colors.red,
-                      icon: Icons.delete,
-                      onTap: () {
-                        setState(() {
-                          widget.allExpense[widget.index].removeDetail(index);
-                          sharedPref.save("data", widget.allExpense);
-                        });
-                      },
+          Observer(builder: (_) {
+            return Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return Slidable(
+                    key: ValueKey(index),
+                    actionPane: SlidableDrawerActionPane(),
+                    dismissal: SlidableDismissal(
+                      child: SlidableDrawerDismissal(),
                     ),
-                  ],
-                  child: GestureDetector(
-                    child: DetailCard(
-                      details: widget.allExpense[widget.index].dets,
-                      index: index,
+                    secondaryActions: [
+                      IconSlideAction(
+                        caption: "Delete",
+                        color: Colors.red,
+                        icon: Icons.delete,
+                        onTap: () {
+                          viewModel.removeTransaction(index);
+                        },
+                      ),
+                    ],
+                    child: GestureDetector(
+                      child: DetailCard(
+                        details: viewModel.selectedCategory.dets,
+                        index: index,
+                      ),
                     ),
-                  ),
-                );
-              },
-              itemCount: widget.allExpense[widget.index].dets.length,
-            ),
-          ),
+                  );
+                },
+                itemCount: viewModel.selectedCategory.dets.length,
+              ),
+            );
+          }),
         ],
       ),
     );
