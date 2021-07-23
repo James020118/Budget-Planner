@@ -4,19 +4,10 @@ import 'package:beyond_helpers/beyond_helpers.dart';
 import 'package:budget_planner/models/rounded_corner_button.dart';
 import 'menu_page_view_model.dart';
 
-class MenuPage extends StatefulWidget {
+class MenuPage extends StatelessWidget {
   final MenuPageViewModel viewModel;
 
   MenuPage(this.viewModel);
-
-  @override
-  _MenuPageState createState() => _MenuPageState(viewModel);
-}
-
-class _MenuPageState extends State<MenuPage> {
-  final MenuPageViewModel viewModel;
-
-  _MenuPageState(this.viewModel);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +15,13 @@ class _MenuPageState extends State<MenuPage> {
       viewModel: viewModel,
       child: Scaffold(
         backgroundColor: Colors.black,
-        appBar: _buildAppBar(),
-        body: _buildBody(),
+        appBar: _buildAppBar(context),
+        body: _buildBody(context),
       ),
     );
   }
 
-  PreferredSize _buildAppBar() {
+  PreferredSize _buildAppBar(BuildContext context) {
     return PreferredSize(
       preferredSize: Size.fromHeight(50),
       child: Container(
@@ -67,7 +58,7 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -82,8 +73,8 @@ class _MenuPageState extends State<MenuPage> {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (context) {
-                    return _buildDialogBody();
+                  builder: (dialogContext) {
+                    return _buildDialogBody(dialogContext);
                   },
                 );
               },
@@ -94,7 +85,7 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
-  Widget _buildDialogBody() {
+  Widget _buildDialogBody(BuildContext dialogContext) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
@@ -132,7 +123,7 @@ class _MenuPageState extends State<MenuPage> {
                     buttonColor: Colors.grey[800]!,
                     isTextBold: true,
                     onPressed: () {
-                      viewModel.clearCategoriesAndPop(context);
+                      viewModel.clearCategoriesAndPop(dialogContext);
                     },
                   ),
                   RoundedCornerButton(
@@ -142,7 +133,7 @@ class _MenuPageState extends State<MenuPage> {
                     textColor: Colors.red,
                     isTextBold: true,
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(dialogContext).pop();
                     },
                   ),
                 ],
