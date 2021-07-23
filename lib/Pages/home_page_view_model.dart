@@ -162,9 +162,6 @@ abstract class _HomePageViewModel extends ViewModel with Store {
     }
   }
 
-  // Region for methods that handling dialog return values
-  // Region start
-  // ------------------------
   String modifyBudgetDialogReturn() {
     return budgetTextEditingController.text;
   }
@@ -176,6 +173,4 @@ abstract class _HomePageViewModel extends ViewModel with Store {
   String chaneNameDialogReturn() {
     return changeCategoryNameTextEditingController.text;
   }
-  // Region end
-  // ------------------------
 }

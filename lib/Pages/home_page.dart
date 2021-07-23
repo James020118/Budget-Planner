@@ -276,7 +276,6 @@ class _HomePageState extends State<HomePage> {
             'Modify Budget',
             buttonColor: Colors.grey[800]!,
             onPressed: () {
-              /// Modify Budget dialog
               createCustomDialogWithTextField(
                 context: context,
                 title: 'Enter New Budget',
