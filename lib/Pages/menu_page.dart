@@ -48,9 +48,13 @@ class MenuPage extends StatelessWidget {
               ),
               Text(
                 'Options',
-                style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
               ),
-              Container(width: MediaQuery.of(context).size.width / 9, height: 0.0),
+              Container(
+                  width: MediaQuery.of(context).size.width / 9, height: 0.0),
             ],
           ),
         ),

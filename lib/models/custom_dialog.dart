@@ -29,7 +29,8 @@ Future<dynamic> createCustomDialogWithTextField({
           isTextBold: true,
           onPressed: () {
             if (controller.text.isNotEmpty) {
-              final returnObject = createReturnObject != null ? createReturnObject() : null;
+              final returnObject =
+                  createReturnObject != null ? createReturnObject() : null;
               Navigator.of(context).pop(returnObject);
             }
           },
