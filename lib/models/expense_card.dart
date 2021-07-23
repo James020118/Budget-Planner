@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../classes/ExpenseCategory.dart';
+import '../classes/expense_category.dart';
 
 class ExpenseCard extends StatefulWidget {
   late final List<ExpenseCategory> categoryList;
@@ -93,7 +93,7 @@ class _ExpenseCardState extends State<ExpenseCard> {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "Spent: \$${widget.categoryList[widget.index].expense.toStringAsFixed(2)}",
+                      'Spent: \$${widget.categoryList[widget.index].expense.toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

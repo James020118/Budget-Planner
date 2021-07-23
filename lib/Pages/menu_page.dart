@@ -1,56 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:beyond_helpers/beyond_helpers.dart';
 
-import 'package:budget_planner/main.dart';
-import 'package:budget_planner/classes/ExpenseCategory.dart';
-import 'package:budget_planner/models/RoundedCornerButton.dart';
+import 'package:budget_planner/models/rounded_corner_button.dart';
+import 'menu_page_view_model.dart';
 
-class MenuPage extends StatefulWidget {
-  final List<ExpenseCategory> allExpense;
+class MenuPage extends StatelessWidget {
+  final MenuPageViewModel viewModel;
 
-  MenuPage({
-    required this.allExpense,
-  });
-
-  @override
-  _MenuPageState createState() => _MenuPageState();
-}
-
-class _MenuPageState extends State<MenuPage> {
-  SharedPref sharedPref = SharedPref();
+  MenuPage(this.viewModel);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: _buildAppBar(),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              RoundedCornerButton(
-                'Clear Month',
-                buttonBorderColor: Colors.red,
-                buttonColor: Colors.red,
-                textColor: Colors.white,
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return _buildDialogBody();
-                    },
-                  );
-                },
-              )
-            ],
-          ),
-        ),
+    return ViewModelRoot(
+      viewModel: viewModel,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: _buildAppBar(context),
+        body: _buildBody(context),
       ),
     );
   }
 
-  PreferredSize _buildAppBar() {
+  PreferredSize _buildAppBar(BuildContext context) {
     return PreferredSize(
       preferredSize: Size.fromHeight(50),
       child: Container(
@@ -65,7 +36,7 @@ class _MenuPageState extends State<MenuPage> {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(widget.allExpense);
+                  Navigator.of(context).pop(viewModel.allExpenseCategories);
                 },
                 child: Padding(
                   padding: EdgeInsets.only(left: 16.0),
@@ -76,10 +47,14 @@ class _MenuPageState extends State<MenuPage> {
                 ),
               ),
               Text(
-                "Options",
-                style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                'Options',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
               ),
-              Container(width: MediaQuery.of(context).size.width / 9, height: 0.0),
+              Container(
+                  width: MediaQuery.of(context).size.width / 9, height: 0.0),
             ],
           ),
         ),
@@ -87,7 +62,32 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
-  Widget _buildDialogBody() {
+  Widget _buildBody(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            RoundedCornerButton(
+              'Clear Month',
+              buttonBorderColor: Colors.red,
+              buttonColor: Colors.red,
+              textColor: Colors.white,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: _buildDialogBody,
+                );
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDialogBody(BuildContext dialogContext) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
@@ -107,7 +107,7 @@ class _MenuPageState extends State<MenuPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Are you sure to clear month?",
+                'Are you sure to clear month?',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white,
@@ -125,12 +125,7 @@ class _MenuPageState extends State<MenuPage> {
                     buttonColor: Colors.grey[800]!,
                     isTextBold: true,
                     onPressed: () {
-                      for (int i = 0; i < widget.allExpense.length; i++) {
-                        widget.allExpense[i].dets.clear();
-                        widget.allExpense[i].expense = 0;
-                      }
-                      sharedPref.save("data", widget.allExpense);
-                      Navigator.of(context).pop();
+                      viewModel.clearCategoriesAndPop(dialogContext);
                     },
                   ),
                   RoundedCornerButton(
@@ -140,7 +135,7 @@ class _MenuPageState extends State<MenuPage> {
                     textColor: Colors.red,
                     isTextBold: true,
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(dialogContext).pop();
                     },
                   ),
                 ],
