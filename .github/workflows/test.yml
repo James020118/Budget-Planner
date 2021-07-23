@@ -1,0 +1,38 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+          with:
+            flutter-version: '2.2.1'
+            channel: 'stable'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze project source
+        run: flutter analyze
+
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+          with:
+            flutter-version: '2.2.1'
+            channel: 'stable'
+      - name: Verify formatting
+        run: flutter format . --set-exit-if-changed
