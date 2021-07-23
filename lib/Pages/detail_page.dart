@@ -76,7 +76,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Text(
-                          "${viewModel.selectedCategory.name} \$${viewModel.selectedCategory.expense.toStringAsFixed(2)}",
+                          '${viewModel.selectedCategory.name} \$${viewModel.selectedCategory.expense.toStringAsFixed(2)}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -125,7 +125,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
             child: Row(
               children: <Widget>[
                 Text(
-                  "Transactions",
+                  'Transactions',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.white,
@@ -147,7 +147,7 @@ class _ExpenseDetailPageState extends State<ExpenseDetailPage> {
                     ),
                     secondaryActions: [
                       IconSlideAction(
-                        caption: "Delete",
+                        caption: 'Delete',
                         color: Colors.red,
                         icon: Icons.delete,
                         onTap: () {

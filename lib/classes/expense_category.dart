@@ -30,8 +30,8 @@ class ExpenseCategory {
     expense = json['expense'];
     // print(json['dets']);
     var temp = [];
-    for (int i = 0; i < json['dets'].length; i++) {
-      ExpenseDetail ed = ExpenseDetail.fromJson(json['dets'][i]);
+    for (var i = 0; i < json['dets'].length; i++) {
+      var ed = ExpenseDetail.fromJson(json['dets'][i]);
       temp.add(ed);
     }
     dets = temp.cast<ExpenseDetail>();

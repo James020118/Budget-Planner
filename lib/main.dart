@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: "Avenir Next Rounded"),
+      theme: ThemeData(fontFamily: 'Avenir Next Rounded'),
       home: HomePage(HomePageViewModel()),
     );
   }

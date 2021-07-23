@@ -19,11 +19,11 @@ abstract class _MenuPageViewModel extends ViewModel with Store {
   });
 
   void clearCategoriesAndPop(BuildContext context) {
-    for (int i = 0; i < allExpenseCategories.length; i++) {
+    for (var i = 0; i < allExpenseCategories.length; i++) {
       allExpenseCategories[i].dets.clear();
       allExpenseCategories[i].expense = 0;
     }
-    sharedPref.save("data", allExpenseCategories);
+    sharedPref.save('data', allExpenseCategories);
     Navigator.of(context).pop();
   }
 }

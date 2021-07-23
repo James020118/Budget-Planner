@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                 vertical: 10,
               ),
               child: Text(
-                "Details",
+                'Details',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.white,
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Container(width: MediaQuery.of(context).size.width / 9, height: 0.0),
               Text(
-                "Budget Planner",
+                'Budget Planner',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 25,
@@ -93,6 +93,7 @@ class _HomePageState extends State<HomePage> {
                         MenuPageViewModel(allExpenseCategories: viewModel.categoryList),
                       ),
                     ),
+                    // ignore: unnecessary_lambdas
                   ).then((value) {
                     viewModel.setMenuPageAndDetailPageReturn(value);
                   });
@@ -119,7 +120,7 @@ class _HomePageState extends State<HomePage> {
         builder: (_) {
           return RichText(
             text: TextSpan(
-              text: "\$${viewModel.totalExpense.toStringAsFixed(2)}",
+              text: '\$${viewModel.totalExpense.toStringAsFixed(2)}',
               style: TextStyle(
                 fontSize: 25,
                 color: viewModel.totalExpense > viewModel.totalBudget ? Colors.red : Colors.white,
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePage> {
               ),
               children: [
                 TextSpan(
-                  text: " / \$${viewModel.totalBudget}",
+                  text: ' / \$${viewModel.totalBudget}',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.grey[400],
@@ -151,7 +152,7 @@ class _HomePageState extends State<HomePage> {
         builder: (_) {
           return RichText(
             text: TextSpan(
-              text: "remaining: ",
+              text: 'remaining: ',
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.grey[400],
@@ -160,7 +161,7 @@ class _HomePageState extends State<HomePage> {
               ),
               children: [
                 TextSpan(
-                  text: "\$${viewModel.moneyLeft.toStringAsFixed(2)}",
+                  text: '\$${viewModel.moneyLeft.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 25,
                     color: viewModel.moneyLeft >= 0 ? Colors.white : Colors.red,
@@ -194,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       secondaryActions: [
                         IconSlideAction(
-                          caption: "Delete",
+                          caption: 'Delete',
                           color: Colors.red,
                           icon: Icons.delete,
                           onTap: () {
@@ -217,6 +218,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
+                            // ignore: unnecessary_lambdas
                           ).then((value) {
                             viewModel.setMenuPageAndDetailPageReturn(value);
                           });
@@ -267,6 +269,7 @@ class _HomePageState extends State<HomePage> {
                 controller: viewModel.newCategoryTextEditingController,
                 textFieldLabelText: 'Category Name',
                 createReturnObject: viewModel.newCategoryDialogReturn,
+                // ignore: unnecessary_lambdas
               ).then((value) {
                 viewModel.setAddCategoryDialogReturn(value);
               });
@@ -286,6 +289,7 @@ class _HomePageState extends State<HomePage> {
                 textFieldHintText: 'Numbers Only',
                 textFieldInputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
                 createReturnObject: viewModel.modifyBudgetDialogReturn,
+                // ignore: unnecessary_lambdas
               ).then((value) {
                 viewModel.setChangeBudgetDialogReturn(value);
               });

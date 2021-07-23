@@ -38,7 +38,7 @@ abstract class _DetailPageViewModel extends ViewModel with Store {
       selectedCategory.dets,
     );
     allExpense[index] = selectedCategory;
-    sharedPref.save("data", allExpense);
+    sharedPref.save('data', allExpense);
   }
 
   @action
@@ -50,6 +50,6 @@ abstract class _DetailPageViewModel extends ViewModel with Store {
       selectedCategory.dets,
     );
     allExpense[index] = selectedCategory;
-    sharedPref.save("data", allExpense);
+    sharedPref.save('data', allExpense);
   }
 }

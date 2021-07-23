@@ -5,9 +5,9 @@ import 'package:budget_planner/classes/expense_detail.dart';
 import 'rounded_corner_button.dart';
 
 Future<ExpenseDetail?> addTransactionDialog(BuildContext context) {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController amountController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+  final descriptionController = TextEditingController();
   DateTime? selectedTime;
 
   Widget _buildBottomButtonRow() {
@@ -22,7 +22,7 @@ Future<ExpenseDetail?> addTransactionDialog(BuildContext context) {
             if (titleController.text.isNotEmpty &&
                 amountController.text.isNotEmpty &&
                 descriptionController.text.isNotEmpty) {
-              ExpenseDetail e = ExpenseDetail(
+              var e = ExpenseDetail(
                 title: titleController.text,
                 amount: double.parse(amountController.text),
                 t: selectedTime == null ? DateTime.now() : selectedTime!,
@@ -69,7 +69,7 @@ Future<ExpenseDetail?> addTransactionDialog(BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Enter Transaction Details:",
+                      'Enter Transaction Details:',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -85,7 +85,7 @@ Future<ExpenseDetail?> addTransactionDialog(BuildContext context) {
                             ),
                             controller: titleController,
                             decoration: InputDecoration(
-                              labelText: "Transaction Title",
+                              labelText: 'Transaction Title',
                               labelStyle: TextStyle(
                                 color: Colors.white,
                               ),
@@ -103,7 +103,7 @@ Future<ExpenseDetail?> addTransactionDialog(BuildContext context) {
                             ),
                             controller: amountController,
                             decoration: InputDecoration(
-                              labelText: "Transaction Amount",
+                              labelText: 'Transaction Amount',
                               labelStyle: TextStyle(
                                 color: Colors.white,
                               ),
@@ -155,7 +155,7 @@ Future<ExpenseDetail?> addTransactionDialog(BuildContext context) {
                             ),
                             controller: descriptionController,
                             decoration: InputDecoration(
-                              labelText: "Transaction Description",
+                              labelText: 'Transaction Description',
                               labelStyle: TextStyle(
                                 color: Colors.white,
                               ),

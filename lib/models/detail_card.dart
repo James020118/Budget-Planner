@@ -61,15 +61,15 @@ class _DetailCardState extends State<DetailCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "$transactionTitle",
+                    '$transactionTitle',
                     style: TextStyle(color: Colors.white),
                   ),
                   Text(
-                    "\$${transactionAmount.toStringAsFixed(2)}",
+                    '\$${transactionAmount.toStringAsFixed(2)}',
                     style: TextStyle(color: Colors.white),
                   ),
                   Text(
-                    "$formattedDate",
+                    '$formattedDate',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -78,7 +78,7 @@ class _DetailCardState extends State<DetailCard> {
                 height: 10,
               ),
               Text(
-                "$transactionDescription",
+                '$transactionDescription',
                 style: TextStyle(color: Colors.white),
               ),
             ],

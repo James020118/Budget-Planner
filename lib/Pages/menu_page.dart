@@ -47,7 +47,7 @@ class MenuPage extends StatelessWidget {
                 ),
               ),
               Text(
-                "Options",
+                'Options',
                 style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
               ),
               Container(width: MediaQuery.of(context).size.width / 9, height: 0.0),
@@ -73,9 +73,7 @@ class MenuPage extends StatelessWidget {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (dialogContext) {
-                    return _buildDialogBody(dialogContext);
-                  },
+                  builder: _buildDialogBody,
                 );
               },
             )
@@ -105,7 +103,7 @@ class MenuPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Are you sure to clear month?",
+                'Are you sure to clear month?',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white,

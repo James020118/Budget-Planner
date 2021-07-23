@@ -35,11 +35,11 @@ abstract class _HomePageViewModel extends ViewModel with Store {
   final changeCategoryNameTextEditingController = TextEditingController();
 
   // Default Categories
-  final ExpenseCategory housing = ExpenseCategory("Housing", 0, []);
-  final ExpenseCategory groceries = ExpenseCategory("Groceries", 0, []);
-  final ExpenseCategory bills = ExpenseCategory("Bills", 0, []);
-  final ExpenseCategory entertainment = ExpenseCategory("Entertainment", 0, []);
-  final ExpenseCategory clothing = ExpenseCategory("Clothing", 0, []);
+  final ExpenseCategory housing = ExpenseCategory('Housing', 0, []);
+  final ExpenseCategory groceries = ExpenseCategory('Groceries', 0, []);
+  final ExpenseCategory bills = ExpenseCategory('Bills', 0, []);
+  final ExpenseCategory entertainment = ExpenseCategory('Entertainment', 0, []);
+  final ExpenseCategory clothing = ExpenseCategory('Clothing', 0, []);
 
   _HomePageViewModel() {
     loadSharedPrefs();
@@ -50,13 +50,13 @@ abstract class _HomePageViewModel extends ViewModel with Store {
     categoryList.removeAt(index);
     categoryList = List.from(categoryList);
     calculateTotalExpense();
-    sharedPref.save("data", categoryList);
+    sharedPref.save('data', categoryList);
   }
 
   @action
   void calculateTotalExpense() {
     totalExpense = 0;
-    for (int i = 0; i < categoryList.length; i++) {
+    for (var i = 0; i < categoryList.length; i++) {
       totalExpense += categoryList[i].expense;
     }
     moneyLeft = totalBudget.toDouble() - totalExpense;
@@ -67,15 +67,15 @@ abstract class _HomePageViewModel extends ViewModel with Store {
     isLoadingData = true;
     return memo.runOnce(() async {
       try {
-        var json = await sharedPref.read("data");
+        var json = await sharedPref.read('data');
         var tempList = <ExpenseCategory>[];
-        for (int i = 0; i < json.length; i++) {
-          ExpenseCategory e = ExpenseCategory.fromJson(json[i]);
+        for (var i = 0; i < json.length; i++) {
+          var e = ExpenseCategory.fromJson(json[i]);
           tempList.add(e);
         }
         categoryList = tempList;
 
-        var budget = await sharedPref.read("budget");
+        var budget = await sharedPref.read('budget');
         totalBudget = budget;
         calculateTotalExpense();
         isLoadingData = false;
@@ -86,8 +86,8 @@ abstract class _HomePageViewModel extends ViewModel with Store {
         categoryList.add(bills);
         categoryList.add(entertainment);
         categoryList.add(clothing);
-        sharedPref.save("data", categoryList);
-        sharedPref.saveNum("budget", 0);
+        await sharedPref.save('data', categoryList);
+        await sharedPref.saveNum('budget', 0);
         totalBudget = 0;
         moneyLeft = totalBudget.toDouble();
         isLoadingData = false;
@@ -106,7 +106,7 @@ abstract class _HomePageViewModel extends ViewModel with Store {
     if (returnValue != null) {
       categoryList[index].name = returnValue as String;
       categoryList = List.from(categoryList);
-      sharedPref.save("data", categoryList);
+      sharedPref.save('data', categoryList);
     }
   }
 
@@ -116,7 +116,7 @@ abstract class _HomePageViewModel extends ViewModel with Store {
     if (returnValue != null) {
       categoryList.add(returnValue as ExpenseCategory);
       categoryList = List.from(categoryList);
-      sharedPref.save("data", categoryList);
+      sharedPref.save('data', categoryList);
     }
   }
 
@@ -126,7 +126,7 @@ abstract class _HomePageViewModel extends ViewModel with Store {
     if (returnValue != null) {
       totalBudget = int.parse(returnValue);
       moneyLeft = totalBudget.toDouble() - totalExpense;
-      sharedPref.saveNum("budget", totalBudget);
+      sharedPref.saveNum('budget', totalBudget);
     }
   }
 
