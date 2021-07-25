@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:async/async.dart';
 
 import 'package:budget_planner/classes/expense_category.dart';
-import 'package:budget_planner/models/shared_pref.dart';
+import 'package:budget_planner/classes/shared_pref.dart';
 
 part 'home_page_view_model.g.dart';
 
@@ -127,38 +127,6 @@ abstract class _HomePageViewModel extends ViewModel with Store {
       totalBudget = int.parse(returnValue);
       moneyLeft = totalBudget.toDouble() - totalExpense;
       sharedPref.saveNum('budget', totalBudget);
-    }
-  }
-
-  Icon getIcon(int index) {
-    if (index == 0) {
-      return Icon(Icons.hotel);
-    } else if (index == 1) {
-      return Icon(Icons.fastfood);
-    } else if (index == 2) {
-      return Icon(Icons.credit_card);
-    } else if (index == 3) {
-      return Icon(Icons.movie);
-    } else if (index == 4) {
-      return Icon(Icons.shopping_basket);
-    } else {
-      return Icon(Icons.star);
-    }
-  }
-
-  Color getColor(int index) {
-    if (index == 0) {
-      return Colors.orange;
-    } else if (index == 1) {
-      return Colors.purple;
-    } else if (index == 2) {
-      return Colors.teal;
-    } else if (index == 3) {
-      return Colors.green;
-    } else if (index == 4) {
-      return Colors.yellow;
-    } else {
-      return Colors.lightBlue;
     }
   }
 

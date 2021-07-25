@@ -11,6 +11,7 @@ import 'package:budget_planner/models/rounded_corner_button.dart';
 import 'package:budget_planner/Pages/menu_page_view_model.dart';
 import 'package:budget_planner/Pages/home_page_view_model.dart';
 import 'package:budget_planner/Pages/detail_page_view_model.dart';
+import '../util.dart';
 
 class HomePage extends StatefulWidget {
   final HomePageViewModel viewModel;
@@ -218,8 +219,8 @@ class _HomePageState extends State<HomePage> {
                                   index: index,
                                   selectedCategory:
                                       viewModel.categoryList[index],
-                                  titleIcon: viewModel.getIcon(index),
-                                  titleColor: viewModel.getColor(index),
+                                  titleIcon: Util.getIcon(index),
+                                  titleColor: Util.getColor(index),
                                 ),
                               ),
                             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../classes/expense_category.dart';
+import '../util.dart';
 
 class ExpenseCard extends StatefulWidget {
   late final List<ExpenseCategory> categoryList;
@@ -16,38 +17,6 @@ class ExpenseCard extends StatefulWidget {
 }
 
 class _ExpenseCardState extends State<ExpenseCard> {
-  Icon _getIcon() {
-    if (widget.index == 0) {
-      return Icon(Icons.hotel);
-    } else if (widget.index == 1) {
-      return Icon(Icons.fastfood);
-    } else if (widget.index == 2) {
-      return Icon(Icons.credit_card);
-    } else if (widget.index == 3) {
-      return Icon(Icons.movie);
-    } else if (widget.index == 4) {
-      return Icon(Icons.shopping_basket);
-    } else {
-      return Icon(Icons.star);
-    }
-  }
-
-  Color _getColor() {
-    if (widget.index == 0) {
-      return Colors.orange;
-    } else if (widget.index == 1) {
-      return Colors.purple;
-    } else if (widget.index == 2) {
-      return Colors.teal;
-    } else if (widget.index == 3) {
-      return Colors.green;
-    } else if (widget.index == 4) {
-      return Colors.yellow;
-    } else {
-      return Colors.lightBlue;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -72,10 +41,10 @@ class _ExpenseCardState extends State<ExpenseCard> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: _getColor(),
+                  color: Util.getColor(widget.index),
                   shape: BoxShape.circle,
                 ),
-                child: _getIcon(),
+                child: Util.getIcon(widget.index),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.04,

@@ -50,17 +50,17 @@ Future<dynamic> createCustomDialogWithTextField({
   }
 
   Widget _buildDialogBody() {
-    return SingleChildScrollView(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[800],
-          borderRadius: BorderRadius.circular(12),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[800],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+          vertical: 24.0,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 24.0,
-          ),
+        child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,8 +81,8 @@ Future<dynamic> createCustomDialogWithTextField({
                         color: Colors.white,
                       ),
                       controller: controller,
+                      maxLength: 18,
                       keyboardType: TextInputType.number,
-                      // inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
                       inputFormatters: textFieldInputFormatters,
                       decoration: InputDecoration(
                         labelText: textFieldLabelText,
