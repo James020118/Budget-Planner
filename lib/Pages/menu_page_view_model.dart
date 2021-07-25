@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:budget_planner/classes/expense_category.dart';
-import 'package:budget_planner/models/shared_pref.dart';
+import 'package:budget_planner/classes/shared_pref.dart';
 
 part 'menu_page_view_model.g.dart';
 

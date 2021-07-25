@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:budget_planner/classes/expense_category.dart';
 import 'package:budget_planner/classes/expense_detail.dart';
-import 'package:budget_planner/models/shared_pref.dart';
+import 'package:budget_planner/classes/shared_pref.dart';
 
 part 'detail_page_view_model.g.dart';
 
