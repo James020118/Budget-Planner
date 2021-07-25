@@ -76,7 +76,8 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Container(width: MediaQuery.of(context).size.width / 9, height: 0.0),
+              Container(
+                  width: MediaQuery.of(context).size.width / 9, height: 0.0),
               Text(
                 'Budget Planner',
                 style: TextStyle(
@@ -91,7 +92,8 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => MenuPage(
-                        MenuPageViewModel(allExpenseCategories: viewModel.categoryList),
+                        MenuPageViewModel(
+                            allExpenseCategories: viewModel.categoryList),
                       ),
                     ),
                     // ignore: unnecessary_lambdas
@@ -124,7 +126,9 @@ class _HomePageState extends State<HomePage> {
               text: '\$${viewModel.totalExpense.toStringAsFixed(2)}',
               style: TextStyle(
                 fontSize: 25,
-                color: viewModel.totalExpense > viewModel.totalBudget ? Colors.red : Colors.white,
+                color: viewModel.totalExpense > viewModel.totalBudget
+                    ? Colors.red
+                    : Colors.white,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Avenir Next Rounded',
               ),
@@ -213,7 +217,8 @@ class _HomePageState extends State<HomePage> {
                                 DetailPageViewModel(
                                   allExpense: viewModel.categoryList,
                                   index: index,
-                                  selectedCategory: viewModel.categoryList[index],
+                                  selectedCategory:
+                                      viewModel.categoryList[index],
                                   titleIcon: Util.getIcon(index),
                                   titleColor: Util.getColor(index),
                                 ),
@@ -230,12 +235,15 @@ class _HomePageState extends State<HomePage> {
                             title: 'Change Name',
                             button1Text: 'Change',
                             button2Text: 'Cancel',
-                            controller: viewModel.changeCategoryNameTextEditingController,
+                            controller: viewModel
+                                .changeCategoryNameTextEditingController,
                             textFieldLabelText: 'Category Name',
-                            textFieldPrefilledString: viewModel.categoryList[index].name,
+                            textFieldPrefilledString:
+                                viewModel.categoryList[index].name,
                             createReturnObject: viewModel.chaneNameDialogReturn,
                           ).then((value) {
-                            viewModel.setChangeCategoryNameDialogReturn(value, index);
+                            viewModel.setChangeCategoryNameDialogReturn(
+                                value, index);
                           });
                         },
                         child: ExpenseCard(
@@ -288,7 +296,9 @@ class _HomePageState extends State<HomePage> {
                 controller: viewModel.budgetTextEditingController,
                 textFieldLabelText: 'Budget',
                 textFieldHintText: 'Numbers Only',
-                textFieldInputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
+                textFieldInputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                ],
                 createReturnObject: viewModel.modifyBudgetDialogReturn,
                 // ignore: unnecessary_lambdas
               ).then((value) {

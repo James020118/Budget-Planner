@@ -76,7 +76,8 @@ Future<ExpenseDetail?> addTransactionDialog(BuildContext context) {
                 onPressed: () {
                   showDatePicker(
                     context: context,
-                    initialDate: selectedTime == null ? DateTime.now() : selectedTime!,
+                    initialDate:
+                        selectedTime == null ? DateTime.now() : selectedTime!,
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2030),
                   ).then((value) {
