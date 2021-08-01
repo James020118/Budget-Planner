@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:flutter/services.dart';
 
 import 'package:budget_planner/Pages/menu_page.dart';
@@ -37,10 +38,9 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              height: 12,
+              height: 20,
             ),
-            _buildBudgetDetail1(),
-            _buildBudgetDetail2(),
+            _buildProgressBar(),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
@@ -113,6 +113,50 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildProgressBar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Observer(
+          builder: (_) {
+            return SleekCircularSlider(
+              appearance: CircularSliderAppearance(
+                size: MediaQuery.of(context).size.width * 0.65,
+                customWidths: CustomSliderWidths(
+                  progressBarWidth: 15.0,
+                ),
+                customColors: CustomSliderColors(
+                  progressBarColors: [
+                    Colors.red,
+                    Colors.orange,
+                    Colors.yellow,
+                    Colors.green,
+                  ],
+                ),
+              ),
+              min: 0,
+              max: viewModel.totalBudget.toDouble(),
+              initialValue: viewModel.totalExpense <= viewModel.totalBudget
+                  ? viewModel.totalExpense
+                  : viewModel.totalBudget.toDouble(),
+              innerWidget: (_) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 75,
+                    ),
+                    _buildBudgetDetail1(),
+                    _buildBudgetDetail2(),
+                  ],
+                );
+              },
+            );
+          },
+        ),
+      ],
     );
   }
 
