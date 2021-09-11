@@ -281,6 +281,7 @@ class _HomePageState extends State<HomePage> {
                             button2Text: 'Cancel',
                             controller: viewModel
                                 .changeCategoryNameTextEditingController,
+                            isNumberOnly: false,
                             textFieldLabelText: 'Category Name',
                             textFieldPrefilledString:
                                 viewModel.categoryList[index].name,
@@ -319,6 +320,7 @@ class _HomePageState extends State<HomePage> {
                 title: 'New Category',
                 button1Text: 'Add',
                 button2Text: 'Cancel',
+                isNumberOnly: false,
                 controller: viewModel.newCategoryTextEditingController,
                 textFieldLabelText: 'Category Name',
                 createReturnObject: viewModel.newCategoryDialogReturn,
@@ -337,6 +339,7 @@ class _HomePageState extends State<HomePage> {
                 title: 'Enter New Budget',
                 button1Text: 'Modify',
                 button2Text: 'Cancel',
+                isNumberOnly: true,
                 controller: viewModel.budgetTextEditingController,
                 textFieldLabelText: 'Budget',
                 textFieldHintText: 'Numbers Only',

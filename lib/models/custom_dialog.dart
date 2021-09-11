@@ -9,6 +9,7 @@ Future<dynamic> createCustomDialogWithTextField({
   required String button1Text,
   required String button2Text,
   required TextEditingController controller,
+  required bool isNumberOnly,
   String? textFieldLabelText,
   String? textFieldHintText,
   String? textFieldPrefilledString,
@@ -82,7 +83,9 @@ Future<dynamic> createCustomDialogWithTextField({
                       ),
                       controller: controller,
                       maxLength: 18,
-                      keyboardType: TextInputType.number,
+                      keyboardType: isNumberOnly
+                          ? TextInputType.number
+                          : TextInputType.text,
                       inputFormatters: textFieldInputFormatters,
                       decoration: InputDecoration(
                         labelText: textFieldLabelText,
